@@ -131,7 +131,7 @@ const ShopLandingPage = () => {
         title: "Premium Phone Cases",
         description: "Protect your device with professional-grade protection",
         image:
-          "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         badges: [
           { label: "Durable", variant: "default" },
           { label: "Professional", variant: "outline" },
@@ -226,7 +226,7 @@ const ShopLandingPage = () => {
                 <TabsTrigger
                   key={tab.id}
                   value={tab.id}
-                  className="px-5 py-3 rounded-md font-medium flex items-center border border-gray-300 hover:bg-gray-100 active:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 data-[state=active]:bg-gray-800 data-[state=active]:text-white"
+                  className="px-5 py-3 rounded-md font-medium flex items-center border border-gray-300 hover:bg-gray-100 active:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
                   aria-controls={`panel-${tab.id}`}
                 >
                   <tab.icon className="h-4 w-4 mr-2" aria-hidden="true" />
@@ -257,7 +257,7 @@ const ShopLandingPage = () => {
                 </div>
                 <Button
                   variant="outline"
-                  className="flex items-center gap-2 self-start border-gray-300 hover:bg-gray-50"
+                  className="flex items-center gap-2 self-start border-gray-300 hover:bg-gray-50 text-gray-700"
                 >
                   All Services{" "}
                   <ChevronRight className="h-4 w-4" aria-hidden="true" />
@@ -272,10 +272,10 @@ const ShopLandingPage = () => {
                 {serviceItems[tab.id].map((item, index) => (
                   <Card
                     key={index}
-                    className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden focus-within:ring-2 focus-within:ring-gray-400"
+                    className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden focus-within:ring-2 focus-within:ring-blue-300"
                   >
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-xl font-semibold text-gray-800">
+                      <CardTitle className="text-xl font-semibold text-gray-900">
                         {item.title}
                       </CardTitle>
                       <CardDescription className="text-gray-600">
@@ -284,8 +284,8 @@ const ShopLandingPage = () => {
                     </CardHeader>
                     <CardContent>
                       <Image
-                      height={208}
-                      width={208}
+                        height={208}
+                        width={208}
                         src={item.image}
                         alt={`${item.title} service`}
                         className="rounded-md w-full h-52 object-cover mb-4"
@@ -298,7 +298,7 @@ const ShopLandingPage = () => {
                           badge.variant === "default" ? (
                             <Badge
                               key={badgeIndex}
-                              className="bg-gray-100 text-gray-800 hover:bg-gray-200 font-normal"
+                              className="bg-blue-100 text-blue-800 hover:bg-blue-200 font-normal"
                             >
                               {badge.label}
                             </Badge>
@@ -306,7 +306,7 @@ const ShopLandingPage = () => {
                             <Badge
                               key={badgeIndex}
                               variant="outline"
-                              className="text-gray-600 font-normal"
+                              className="text-gray-600 border-gray-300 font-normal"
                             >
                               {badge.label}
                             </Badge>
@@ -314,7 +314,7 @@ const ShopLandingPage = () => {
                         )}
                       </div>
                       <p
-                        className="text-sm text-gray-600 font-medium"
+                        className="text-sm text-gray-700 font-medium"
                         aria-label="Price"
                       >
                         {item.price}
@@ -327,7 +327,7 @@ const ShopLandingPage = () => {
                       >
                         {buttonTexts[tab.id].details}
                       </Button>
-                      <Button className="bg-gray-800 hover:bg-gray-900 text-white focus:ring-2 focus:ring-gray-800 focus:ring-offset-2">
+                      <Button className="bg-blue-600 hover:bg-blue-700 text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                         {buttonTexts[tab.id].action}
                       </Button>
                     </CardFooter>
