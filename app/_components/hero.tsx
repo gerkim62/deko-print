@@ -1,6 +1,4 @@
-type Props = {};
-
-export default function Hero({}: Props) {
+export default function Hero() {
   return (
     <section className="relative bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-12 md:py-20 overflow-hidden">
       {/* Abstract Background Elements */}

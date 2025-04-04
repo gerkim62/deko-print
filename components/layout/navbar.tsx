@@ -3,9 +3,7 @@
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 
-type Props = {};
-
-export default function Navbar({}: Props) {
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (

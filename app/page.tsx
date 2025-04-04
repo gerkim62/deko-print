@@ -17,6 +17,7 @@ import {
   Wrench,
 } from "lucide-react";
 import Hero from "./_components/hero";
+import Image from "next/image";
 
 const ShopLandingPage = () => {
   // Service tabs data
@@ -282,7 +283,9 @@ const ShopLandingPage = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <img
+                      <Image
+                      height={208}
+                      width={208}
                         src={item.image}
                         alt={`${item.title} service`}
                         className="rounded-md w-full h-52 object-cover mb-4"
