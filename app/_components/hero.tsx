@@ -32,7 +32,7 @@ export default function Hero() {
                 Deko Print
               </h2>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
-                All Your <span className="text-yellow-300">Needs</span>,
+                All Your <span className="text-yellow-300">Needs</span>, {" "}
                 <br className="hidden sm:block" />
                 One Convenient Stop
               </h1>
