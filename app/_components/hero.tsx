@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="relative bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-12 md:py-20 overflow-hidden">
+    <section className="relative bg-gradient-to-r from-blue-900 to-indigo-950 text-white py-12 md:py-20 overflow-hidden">
       {/* Abstract Background Elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-32 md:w-64 h-32 md:h-64 rounded-full bg-white"></div>
