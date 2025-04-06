@@ -1,3 +1,4 @@
+import BgSecondaryLogo from "@/components/layout/bg-secondary-logo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import prisma from "@/lib/prisma";
 import {
   ChevronRight,
   Printer,
@@ -16,20 +18,63 @@ import {
   Smartphone,
   Wrench,
 } from "lucide-react";
-import Hero from "./_components/hero";
 import Image from "next/image";
-import BgSecondaryLogo from "@/components/layout/bg-secondary-logo";
+import Hero from "./_components/hero";
+import { EmptyState } from "./_components/empty-state";
+import {
+  Product,
+  ProductCategory,
+  Service,
+  ServiceCategory,
+} from "@prisma/client";
 
-const ShopLandingPage = () => {
+// Define a union type for our tab item types
+type TabItem = {
+  id: string;
+  label: string;
+  icon: React.ComponentType<any>;
+  title: string;
+  description: string;
+  emptyMessage: string;
+  itemType: "services" | "products";
+};
+
+// Define separate tab items for services and products
+type ServiceTabItem = TabItem & {
+  items: Service[];
+  itemType: "services";
+};
+
+type ProductTabItem = TabItem & {
+  items: Product[];
+  itemType: "products";
+};
+
+// Union type for all tab items
+type AnyTabItem = ServiceTabItem | ProductTabItem;
+
+async function ShopLandingPage() {
+  const servicesPromise = prisma.service.findMany();
+  const productsPromise = prisma.product.findMany();
+
+  const [services, products] = await Promise.all([
+    servicesPromise,
+    productsPromise,
+  ]);
+
   // Service tabs data
-  const serviceTabs = [
+  const serviceTabs: AnyTabItem[] = [
     {
       id: "printing",
       label: "Printing",
       icon: Printer,
       title: "Printing Solutions",
-      description:
-        "High-quality printing for business and personal requirements",
+      description: "High-quality printing for business and personal requirements",
+      items: services.filter(
+        (service) => service.category === ServiceCategory.Printing
+      ),
+      emptyMessage: "No printing services are currently available. Please check back soon.",
+      itemType: "services",
     },
     {
       id: "repairs",
@@ -37,6 +82,11 @@ const ShopLandingPage = () => {
       icon: Wrench,
       title: "Repair Services",
       description: "Expert device repairs with professional turnaround",
+      items: services.filter(
+        (service) => service.category === ServiceCategory.Repair
+      ),
+      emptyMessage: "No repair services are currently available. Please check back soon.",
+      itemType: "services",
     },
     {
       id: "accessories",
@@ -44,6 +94,11 @@ const ShopLandingPage = () => {
       icon: Smartphone,
       title: "Professional Accessories",
       description: "Premium accessories for all your devices",
+      items: products.filter(
+        (product) => product.category === ProductCategory.Accessory
+      ),
+      emptyMessage: "No accessories are currently in stock. Please check back soon.",
+      itemType: "products",
     },
     {
       id: "secondhand",
@@ -51,153 +106,13 @@ const ShopLandingPage = () => {
       icon: ShoppingBag,
       title: "Pre-Owned Equipment",
       description: "Quality certified used devices at competitive prices",
+      items: products.filter(
+        (product) => product.category === ProductCategory.Pre_owned
+      ),
+      emptyMessage: "No pre-owned equipment is currently available. Please check back soon.",
+      itemType: "products",
     },
-  ] as const;
-
-  // Services data - organized by tab ID
-  const serviceItems = {
-    printing: [
-      {
-        title: "T-Shirt Printing",
-        description: "Premium custom designs on high-quality fabric",
-        image:
-          "https://images.unsplash.com/photo-1562157873-818bc0726f68?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Premium", variant: "default" },
-          { label: "Same-Day Available", variant: "outline" },
-        ],
-        price: "Starting from Ksh 800 per shirt",
-      },
-      {
-        title: "Document Printing",
-        description: "Professional documents, flyers, and posters",
-        image:
-          "https://images.unsplash.com/photo-1589986005992-e173198b1246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "High Resolution", variant: "default" },
-          { label: "Color/B&W", variant: "outline" },
-        ],
-        price: "Starting from Ksh 5 per page",
-      },
-      {
-        title: "Banner Production",
-        description: "Large format prints for corporate events",
-        image:
-          "https://images.unsplash.com/photo-1561020013-ac55931ecef1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Large Format", variant: "default" },
-          { label: "Weather-Resistant", variant: "outline" },
-        ],
-        price: "Starting from Ksh 1,500 per banner",
-      },
-    ],
-    repairs: [
-      {
-        title: "Laptop Repair",
-        description: "Hardware and software solutions for all brands",
-        image:
-          "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Professional", variant: "default" },
-          { label: "Warranty", variant: "outline" },
-        ],
-        price: "Starting from Ksh 1,000",
-      },
-      {
-        title: "Phone Repair",
-        description:
-          "Screen replacement, battery, and comprehensive diagnostics",
-        image:
-          "https://images.unsplash.com/photo-1595941069915-4ebc5197c14a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Same-day", variant: "default" },
-          { label: "Certified Parts", variant: "outline" },
-        ],
-        price: "Starting from Ksh 800",
-      },
-      {
-        title: "Audio Equipment",
-        description: "Professional speaker, headphone and amplifier repairs",
-        image:
-          "https://images.unsplash.com/photo-1558124044-eb772a1a8966?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Expert", variant: "default" },
-          { label: "Guaranteed", variant: "outline" },
-        ],
-        price: "Starting from Ksh 1,200",
-      },
-    ],
-    accessories: [
-      {
-        title: "Premium Phone Cases",
-        description: "Protect your device with professional-grade protection",
-        image:
-          "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Durable", variant: "default" },
-          { label: "Professional", variant: "outline" },
-        ],
-        price: "Starting from Ksh 500",
-      },
-      {
-        title: "Professional Headphones",
-        description: "Wired and wireless solutions for business and leisure",
-        image:
-          "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Bluetooth", variant: "default" },
-          { label: "Noise-Cancelling", variant: "outline" },
-        ],
-        price: "Starting from Ksh 900",
-      },
-      {
-        title: "Charging Solutions",
-        description: "Enterprise-grade power solutions for all devices",
-        image:
-          "https://images.unsplash.com/photo-1583863788344-a671a9818ab6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Fast Charging", variant: "default" },
-          { label: "Universal", variant: "outline" },
-        ],
-        price: "Starting from Ksh 400",
-      },
-    ],
-    secondhand: [
-      {
-        title: "Certified Laptops",
-        description: "Refurbished business laptops with warranty",
-        image:
-          "https://images.unsplash.com/photo-1542744094-3a31f272c490?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Certified", variant: "default" },
-          { label: "90-Day Warranty", variant: "outline" },
-        ],
-        price: "Starting from Ksh 15,000",
-      },
-      {
-        title: "Refurbished Smartphones",
-        description: "Factory-restored phones at competitive prices",
-        image:
-          "https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Unlocked", variant: "default" },
-          { label: "Tested", variant: "outline" },
-        ],
-        price: "Starting from Ksh 5,000",
-      },
-      {
-        title: "Business Electronics",
-        description: "Pre-owned electronics suitable for office environments",
-        image:
-          "https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        badges: [
-          { label: "Inspected", variant: "default" },
-          { label: "As-Is", variant: "outline" },
-        ],
-        price: "Various prices",
-      },
-    ],
-  } as const;
+  ];
 
   // Button texts - could be customized per category if needed
   const buttonTexts = {
@@ -206,6 +121,21 @@ const ShopLandingPage = () => {
     accessories: { details: "Details", action: "Order Now" },
     secondhand: { details: "View Specifications", action: "Order Now" },
   } as const;
+
+  // Helper function to render price based on item type
+  const renderPrice = (
+    item: Product | Service,
+    itemType: "products" | "services"
+  ) => {
+    if (itemType === "products") {
+      return `$${(item as Product).price.toFixed(2)}`;
+    } else {
+      const startingPrice = (item as Service).startingPrice;
+      return startingPrice
+        ? `Starting at $${startingPrice.toFixed(2)}`
+        : "Contact for pricing";
+    }
+  };
 
   return (
     <>
@@ -264,85 +194,87 @@ const ShopLandingPage = () => {
                   variant="outline"
                   className="flex items-center gap-2 self-start"
                 >
-                  All Services{" "}
+                  All{" "}
+                  {tab.itemType.charAt(0).toUpperCase() + tab.itemType.slice(1)}{" "}
                   <ChevronRight className="h-4 w-4" aria-hidden="true" />
                 </Button>
               </div>
 
-              {/* Service Items Grid */}
-              <div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                aria-label={`${tab.title} offerings`}
-              >
-                {serviceItems[tab.id].map((item, index) => (
-                  <Card
-                    key={index}
-                    className="border border-border shadow-sm hover:shadow-md transition-shadow overflow-hidden focus-within:ring-2 focus-within:ring-ring"
-                  >
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-xl font-semibold text-foreground">
-                        {item.title}
-                      </CardTitle>
-                      <CardDescription>{item.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Image
-                        height={208}
-                        width={208}
-                        src={item.image}
-                        alt={`${item.title} service`}
-                        className="rounded-md w-full h-52 object-cover mb-4"
-                      />
-                      <div
-                        className="flex gap-2 mb-3"
-                        aria-label="Service features"
-                      >
-                        {item.badges.map((badge, badgeIndex) =>
-                          badge.variant === "default" ? (
+              {/* Items Grid or Empty State */}
+              {tab.items.length > 0 ? (
+                <div
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                  aria-label={`${tab.title} offerings`}
+                >
+                  {tab.items.map((item, index) => (
+                    <Card
+                      key={index}
+                      className="border border-border shadow-sm hover:shadow-md transition-shadow overflow-hidden focus-within:ring-2 focus-within:ring-ring"
+                    >
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-xl font-semibold text-foreground">
+                          {item.title}
+                        </CardTitle>
+                        <CardDescription>{item.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        {item.image && (
+                          <Image
+                            height={208}
+                            width={208}
+                            src={item.image}
+                            alt={`${item.title} ${tab.itemType === "services"
+                                ? "service"
+                                : "product"}`}
+                            className="rounded-md w-full h-52 object-cover mb-4" />
+                        )}
+                        <div
+                          className="flex gap-2 mb-3"
+                          aria-label="Item features"
+                        >
+                          {item.tags.map((tag, tagIndex) => (
                             <Badge
-                              key={badgeIndex}
+                              key={tagIndex}
                               className="bg-primary/20 text-primary hover:bg-primary/30 font-normal"
                             >
-                              {badge.label}
+                              {tag}
                             </Badge>
-                          ) : (
-                            <Badge
-                              key={badgeIndex}
-                              variant="outline"
-                              className="text-muted-foreground font-normal"
-                            >
-                              {badge.label}
-                            </Badge>
-                          )
-                        )}
-                      </div>
-                      <p
-                        className="text-sm text-muted-foreground font-medium"
-                        aria-label="Price"
-                      >
-                        {item.price}
-                      </p>
-                    </CardContent>
-                    <CardFooter className="flex justify-between pt-2 border-t border-border">
-                      <Button
-                        variant="outline"
-                        className="focus-visible:ring-2 focus-visible:ring-ring"
-                      >
-                        {buttonTexts[tab.id].details}
-                      </Button>
-                      <Button className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                        {buttonTexts[tab.id].action}
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
+                          ))}
+                        </div>
+                        <p
+                          className="text-sm text-muted-foreground font-medium"
+                          aria-label="Price"
+                        >
+                          {renderPrice(item, tab.itemType)}
+                        </p>
+                      </CardContent>
+                      <CardFooter className="flex justify-between pt-2 border-t border-border">
+                        <Button
+                          variant="outline"
+                          className="focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          {buttonTexts[tab.id as keyof typeof buttonTexts]
+                            .details}
+                        </Button>
+                        <Button className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                          {buttonTexts[tab.id as keyof typeof buttonTexts]
+                            .action}
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <EmptyState
+                  message={tab.emptyMessage}
+                  category={tab.itemType} />
+              )}
             </TabsContent>
           ))}
         </Tabs>
       </main>
     </>
   );
-};
+}
 
 export default ShopLandingPage;
