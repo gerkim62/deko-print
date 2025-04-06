@@ -1,14 +1,5 @@
 import BgSecondaryLogo from "@/components/layout/bg-secondary-logo";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import prisma from "@/lib/prisma";
 import {
@@ -18,7 +9,6 @@ import {
   Smartphone,
   Wrench,
 } from "lucide-react";
-import Image from "next/image";
 import Hero from "./_components/hero";
 import { EmptyState } from "./_components/empty-state";
 import {
@@ -27,7 +17,7 @@ import {
   Service,
   ServiceCategory,
 } from "@prisma/client";
-
+import ItemsGrid from "./_components/items-grid";
 // Define a union type for our tab item types
 type TabItem = {
   id: string;
@@ -122,21 +112,6 @@ async function ShopLandingPage() {
     secondhand: { details: "View Specifications", action: "Order Now" },
   } as const;
 
-  // Helper function to render price based on item type
-  const renderPrice = (
-    item: Product | Service,
-    itemType: "products" | "services"
-  ) => {
-    if (itemType === "products") {
-      return `$${(item as Product).price.toFixed(2)}`;
-    } else {
-      const startingPrice = (item as Service).startingPrice;
-      return startingPrice
-        ? `Starting at $${startingPrice.toFixed(2)}`
-        : "Contact for pricing";
-    }
-  };
-
   return (
     <>
       <Hero />
@@ -202,68 +177,13 @@ async function ShopLandingPage() {
 
               {/* Items Grid or Empty State */}
               {tab.items.length > 0 ? (
-                <div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                  aria-label={`${tab.title} offerings`}
-                >
-                  {tab.items.map((item, index) => (
-                    <Card
-                      key={index}
-                      className="border border-border shadow-sm hover:shadow-md transition-shadow overflow-hidden focus-within:ring-2 focus-within:ring-ring"
-                    >
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-xl font-semibold text-foreground">
-                          {item.title}
-                        </CardTitle>
-                        <CardDescription>{item.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        {item.image && (
-                          <Image
-                            height={208}
-                            width={208}
-                            src={item.image}
-                            alt={`${item.title} ${tab.itemType === "services"
-                                ? "service"
-                                : "product"}`}
-                            className="rounded-md w-full h-52 object-cover mb-4" />
-                        )}
-                        <div
-                          className="flex gap-2 mb-3"
-                          aria-label="Item features"
-                        >
-                          {item.tags.map((tag, tagIndex) => (
-                            <Badge
-                              key={tagIndex}
-                              className="bg-primary/20 text-primary hover:bg-primary/30 font-normal"
-                            >
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                        <p
-                          className="text-sm text-muted-foreground font-medium"
-                          aria-label="Price"
-                        >
-                          {renderPrice(item, tab.itemType)}
-                        </p>
-                      </CardContent>
-                      <CardFooter className="flex justify-between pt-2 border-t border-border">
-                        <Button
-                          variant="outline"
-                          className="focus-visible:ring-2 focus-visible:ring-ring"
-                        >
-                          {buttonTexts[tab.id as keyof typeof buttonTexts]
-                            .details}
-                        </Button>
-                        <Button className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                          {buttonTexts[tab.id as keyof typeof buttonTexts]
-                            .action}
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  ))}
-                </div>
+                <ItemsGrid
+                  items={tab.items}
+                  itemType={tab.itemType}
+                  title={tab.title}
+                  tabId={tab.id}
+                  buttonTexts={buttonTexts}
+                />
               ) : (
                 <EmptyState
                   message={tab.emptyMessage}
