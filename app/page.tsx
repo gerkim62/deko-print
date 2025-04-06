@@ -215,7 +215,7 @@ const ShopLandingPage = () => {
         <Tabs defaultValue="printing" className="w-full">
           {/* Services Navigation Tabs */}
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center md:text-left">
+            <h2 className="text-2xl font-bold text-foreground mb-8 text-center md:text-left">
               Professional Services
             </h2>
             <TabsList
@@ -226,7 +226,7 @@ const ShopLandingPage = () => {
                 <TabsTrigger
                   key={tab.id}
                   value={tab.id}
-                  className="px-5 py-3 rounded-md font-medium flex items-center border border-gray-300 hover:bg-gray-100 active:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                  className="px-5 py-3 rounded-md font-medium flex items-center border border-input hover:bg-accent active:bg-accent/80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                   aria-controls={`panel-${tab.id}`}
                 >
                   <tab.icon className="h-4 w-4 mr-2" aria-hidden="true" />
@@ -248,16 +248,16 @@ const ShopLandingPage = () => {
             >
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900">
+                  <h3 className="text-2xl font-bold text-foreground">
                     {tab.title}
                   </h3>
-                  <p className="text-gray-600 mt-2 text-base">
+                  <p className="text-muted-foreground mt-2 text-base">
                     {tab.description}
                   </p>
                 </div>
                 <Button
                   variant="outline"
-                  className="flex items-center gap-2 self-start border-gray-300 hover:bg-gray-50 text-gray-700"
+                  className="flex items-center gap-2 self-start"
                 >
                   All Services{" "}
                   <ChevronRight className="h-4 w-4" aria-hidden="true" />
@@ -272,13 +272,13 @@ const ShopLandingPage = () => {
                 {serviceItems[tab.id].map((item, index) => (
                   <Card
                     key={index}
-                    className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden focus-within:ring-2 focus-within:ring-blue-300"
+                    className="border border-border shadow-sm hover:shadow-md transition-shadow overflow-hidden focus-within:ring-2 focus-within:ring-ring"
                   >
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-xl font-semibold text-gray-900">
+                      <CardTitle className="text-xl font-semibold text-foreground">
                         {item.title}
                       </CardTitle>
-                      <CardDescription className="text-gray-600">
+                      <CardDescription>
                         {item.description}
                       </CardDescription>
                     </CardHeader>
@@ -298,7 +298,7 @@ const ShopLandingPage = () => {
                           badge.variant === "default" ? (
                             <Badge
                               key={badgeIndex}
-                              className="bg-blue-100 text-blue-800 hover:bg-blue-200 font-normal"
+                              className="bg-primary/20 text-primary hover:bg-primary/30 font-normal"
                             >
                               {badge.label}
                             </Badge>
@@ -306,7 +306,7 @@ const ShopLandingPage = () => {
                             <Badge
                               key={badgeIndex}
                               variant="outline"
-                              className="text-gray-600 border-gray-300 font-normal"
+                              className="text-muted-foreground font-normal"
                             >
                               {badge.label}
                             </Badge>
@@ -314,20 +314,20 @@ const ShopLandingPage = () => {
                         )}
                       </div>
                       <p
-                        className="text-sm text-gray-700 font-medium"
+                        className="text-sm text-muted-foreground font-medium"
                         aria-label="Price"
                       >
                         {item.price}
                       </p>
                     </CardContent>
-                    <CardFooter className="flex justify-between pt-2 border-t border-gray-100">
+                    <CardFooter className="flex justify-between pt-2 border-t border-border">
                       <Button
                         variant="outline"
-                        className="border-gray-300 hover:bg-gray-50 text-gray-700 focus:ring-2 focus:ring-gray-400"
+                        className="focus-visible:ring-2 focus-visible:ring-ring"
                       >
                         {buttonTexts[tab.id].details}
                       </Button>
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                      <Button className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                         {buttonTexts[tab.id].action}
                       </Button>
                     </CardFooter>
