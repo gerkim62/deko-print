@@ -211,12 +211,15 @@ const ShopLandingPage = () => {
       <Hero />
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 md:px-6 py-12">
+      <main
+        id="products-and-services"
+        className="container mx-auto px-4 md:px-6 py-12"
+      >
         <Tabs defaultValue="printing" className="w-full">
           {/* Services Navigation Tabs */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-foreground mb-8 text-center md:text-left">
-              Professional Services
+              Our Products and Services
             </h2>
             <TabsList
               className="w-full flex flex-wrap justify-center md:justify-start gap-2 bg-transparent"
@@ -278,9 +281,7 @@ const ShopLandingPage = () => {
                       <CardTitle className="text-xl font-semibold text-foreground">
                         {item.title}
                       </CardTitle>
-                      <CardDescription>
-                        {item.description}
-                      </CardDescription>
+                      <CardDescription>{item.description}</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <Image

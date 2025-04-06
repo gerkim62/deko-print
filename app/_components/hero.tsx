@@ -1,6 +1,13 @@
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ArrowDown, Package, Phone, Printer, Utensils, Wrench } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+{/* <Image
+src={"/secondary-logo.png"}
+/> */}
 
 export default function Hero() {
   return (
@@ -13,7 +20,10 @@ export default function Hero() {
       </div>
 
       {/* Location Badge - Hidden on small screens, visible from medium screens up */}
-      <Badge variant="outline" className="absolute top-6 right-6 hidden md:flex bg-accent text-accent-foreground px-4 py-2 rounded-full font-bold items-center shadow-lg">
+      <Badge
+        variant="outline"
+        className="absolute top-6 right-6 hidden md:flex bg-accent text-accent-foreground px-4 py-2 rounded-full font-bold items-center shadow-lg"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5 mr-2"
@@ -36,7 +46,7 @@ export default function Hero() {
                 Deko Print
               </h2>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
-                All Your <span className="text-accent">Needs</span>, {" "}
+                All Your <span className="text-accent">Needs</span>,{" "}
                 <br className="hidden sm:block" />
                 One Convenient Stop
               </h1>
@@ -47,11 +57,24 @@ export default function Hero() {
               convenient location.
             </p>
             <div className="flex justify-center md:justify-start">
-              <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
-                Get Started
+              <Button
+                asChild
+                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+              >
+                <Link href={"#products-and-services"}>
+                  Products and Services
+                  <ArrowDown className="animate animate-bounce mt-1" />
+                </Link>
               </Button>
-              <Button variant="outline" className="ml-4 bg-primary text-primary-foreground border-primary-foreground/20 hover:bg-primary/80 font-semibold">
-                Learn More
+              <Button
+                asChild
+                variant="outline"
+                className="ml-4 bg-primary text-primary-foreground border-primary-foreground/20 hover:bg-primary/80 font-semibold"
+              >
+                <Link href="/contact-us">
+                  <Phone className="ml-2 h-4 w-4" />
+                  Contact Us
+                </Link>
               </Button>
             </div>
 
@@ -86,79 +109,45 @@ export default function Hero() {
           <div className="w-full md:w-2/5 mt-4 md:mt-0">
             <Card className="relative bg-primary-foreground/10 backdrop-blur-sm p-4 md:p-6 rounded-lg shadow-2xl border-primary-foreground/20 text-primary-foreground">
               <div className="grid grid-cols-2 gap-3 md:gap-5">
+                {/* Printing */}
                 <div
                   className="bg-accent/25 p-3 md:p-5 rounded-lg text-center select-none animate-fade-in hover:bg-accent/20 transition-colors duration-300"
                   style={{ animationDelay: "0.1s" }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M17 17h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2" />
-                    <rect x="7" y="12" width="10" height="8" rx="1" />
-                  </svg>
+                  <Printer className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse" />
                   <span className="text-sm md:text-base font-medium">
                     Printing
                   </span>
                 </div>
+
+                {/* Repairs */}
                 <div
                   className="bg-secondary/25 p-3 md:p-5 rounded-lg text-center select-none animate-fade-in hover:bg-secondary/20 transition-colors duration-300"
                   style={{ animationDelay: "0.2s" }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                  </svg>
+                  <Wrench className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse" />
                   <span className="text-sm md:text-base font-medium">
                     Repairs
                   </span>
                 </div>
+
+                {/* Accessories */}
                 <div
                   className="bg-muted/25 p-3 md:p-5 rounded-lg text-center select-none animate-fade-in hover:bg-muted/20 transition-colors duration-300"
                   style={{ animationDelay: "0.3s" }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="9" cy="21" r="1" />
-                    <circle cx="20" cy="21" r="1" />
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                  </svg>
-                  <span className="text-sm md:text-base font-medium">Shop</span>
+                  <Package className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse" />
+                  <span className="text-sm md:text-base font-medium">
+                    Accessories
+                  </span>
                 </div>
+
+                {/* Snacks */}
                 <div
                   className="bg-accent/25 p-3 md:p-5 rounded-lg text-center select-none animate-fade-in hover:bg-accent/20 transition-colors duration-300"
                   style={{ animationDelay: "0.4s" }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
-                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
-                    <line x1="6" y1="1" x2="6" y2="4" />
-                    <line x1="10" y1="1" x2="10" y2="4" />
-                    <line x1="14" y1="1" x2="14" y2="4" />
-                  </svg>
+                  <Utensils className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse" />
                   <span className="text-sm md:text-base font-medium">
                     Snacks
                   </span>

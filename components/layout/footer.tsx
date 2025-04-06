@@ -3,12 +3,12 @@ import { Separator } from "../ui/separator";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-primary-foreground mt-12">
+    <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 md:px-6 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <h4 className="text-xl font-bold mb-4">Deko Print</h4>
-            <p className="text-muted mb-6">
+            <p className="text-gray-400 mb-6">
               Your one-stop solution for printing, device repairs, and
               accessories in Baraton.
             </p>
@@ -16,7 +16,7 @@ export default function Footer() {
               <a
                 href="#"
                 aria-label="Facebook"
-                className="text-muted hover:text-primary-foreground transition duration-150"
+                className="text-gray-400 hover:text-white transition duration-150"
               >
                 <svg
                   className="h-5 w-5"
@@ -29,7 +29,7 @@ export default function Footer() {
               <a
                 href="#"
                 aria-label="Instagram"
-                className="text-muted hover:text-primary-foreground transition duration-150"
+                className="text-gray-400 hover:text-white transition duration-150"
               >
                 <svg
                   className="h-5 w-5"
@@ -42,7 +42,7 @@ export default function Footer() {
               <a
                 href="#"
                 aria-label="Twitter"
-                className="text-muted hover:text-primary-foreground transition duration-150"
+                className="text-gray-400 hover:text-white transition duration-150"
               >
                 <svg
                   className="h-5 w-5"
@@ -60,7 +60,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#"
-                  className="text-muted hover:text-primary-foreground transition duration-150"
+                  className="text-gray-400 hover:text-white transition duration-150"
                 >
                   Home
                 </a>
@@ -68,7 +68,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#"
-                  className="text-muted hover:text-primary-foreground transition duration-150"
+                  className="text-gray-400 hover:text-white transition duration-150"
                 >
                   About Us
                 </a>
@@ -76,7 +76,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#"
-                  className="text-muted hover:text-primary-foreground transition duration-150"
+                  className="text-gray-400 hover:text-white transition duration-150"
                 >
                   Services
                 </a>
@@ -84,7 +84,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#"
-                  className="text-muted hover:text-primary-foreground transition duration-150"
+                  className="text-gray-400 hover:text-white transition duration-150"
                 >
                   Printing
                 </a>
@@ -92,7 +92,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#"
-                  className="text-muted hover:text-primary-foreground transition duration-150"
+                  className="text-gray-400 hover:text-white transition duration-150"
                 >
                   Repairs
                 </a>
@@ -100,7 +100,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#"
-                  className="text-muted hover:text-primary-foreground transition duration-150"
+                  className="text-gray-400 hover:text-white transition duration-150"
                 >
                   Contact
                 </a>
@@ -109,20 +109,20 @@ export default function Footer() {
           </div>
           <div>
             <h5 className="font-bold text-lg mb-4">Opening Hours</h5>
-            <p className="text-muted mb-2">Monday - Sunday:</p>
-            <p className="text-muted font-medium">8:00 AM - 8:00 PM</p>
+            <p className="text-gray-400 mb-2">Monday - Sunday:</p>
+            <p className="text-gray-400 font-medium">8:00 AM - 8:00 PM</p>
           </div>
           <div>
             <h5 className="font-bold text-lg mb-4">Contact Us</h5>
             <address className="not-italic">
-              <p className="text-muted mb-2">Baraton, next to the market</p>
-              <p className="text-muted mb-2">info@dekoprint.com</p>
-              <p className="text-muted">+254 712 345 678</p>
+              <p className="text-gray-400 mb-2">Baraton, next to the market</p>
+              <p className="text-gray-400 mb-2">info@dekoprint.com</p>
+              <p className="text-gray-400">+254 712 345 678</p>
             </address>
           </div>
         </div>
-        <Separator className="my-8 bg-border/50" />
-        <div className="text-center text-muted/70">
+        <Separator className="my-8 bg-gray-800" />
+        <div className="text-center text-gray-500">
           <p>© 2025 Deko Print. All rights reserved.</p>
         </div>
       </div>
