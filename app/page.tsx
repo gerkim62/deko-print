@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import prisma from "@/lib/prisma";
 import {
   ChevronRight,
+  LucideIcon,
   Printer,
   ShoppingBag,
   Smartphone,
@@ -22,7 +23,7 @@ import ItemsGrid from "./_components/items-grid";
 type TabItem = {
   id: string;
   label: string;
-  icon: React.ComponentType<any>;
+  icon: LucideIcon;
   title: string;
   description: string;
   emptyMessage: string;

@@ -52,14 +52,14 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
     item: Product | Service,
     itemType: "products" | "services"
   ) => {
-    if (itemType === "products") {
-      return `$${(item as Product).price.toFixed(2)}`;
-    } else {
-      const startingPrice = (item as Service).startingPrice;
+    if (itemType === "products" && "price" in item) {
+      return `$${item.price.toFixed(2)}`;
+    } else if (itemType === "services" && "startingPrice" in item) {
+      const startingPrice = item.startingPrice;
       return startingPrice
         ? `Starting at $${startingPrice.toFixed(2)}`
         : "Contact for pricing";
-    }
+    } else return "N/A";
   };
 
   // Page change handlers
