@@ -5,10 +5,6 @@ import { ArrowDown, Package, Phone, Printer, Utensils, Wrench } from "lucide-rea
 import Image from "next/image";
 import Link from "next/link";
 
-{/* <Image
-src={"/secondary-logo.png"}
-/> */}
-
 export default function Hero() {
   return (
     <section className="relative bg-primary text-primary-foreground py-12 md:py-20 overflow-hidden">
@@ -17,6 +13,9 @@ export default function Hero() {
         <div className="absolute top-20 left-10 w-32 md:w-64 h-32 md:h-64 rounded-full bg-background"></div>
         <div className="absolute bottom-10 right-20 w-20 md:w-40 h-20 md:h-40 rounded-full bg-secondary"></div>
         <div className="absolute top-40 right-40 w-10 md:w-20 h-10 md:h-20 rounded-full bg-muted"></div>
+        
+        
+       
       </div>
 
       {/* Location Badge - Hidden on small screens, visible from medium screens up */}
@@ -69,7 +68,7 @@ export default function Hero() {
               <Button
                 asChild
                 variant="outline"
-                className="ml-4 bg-primary text-primary-foreground border-primary-foreground/20 hover:bg-primary/80 font-semibold"
+                className="ml-4 bg-primary text-primary-foreground border-primary-foreground/20 hover:bg-primary-foreground hover:text-black font-semibold"
               >
                 <Link href="/contact-us">
                   <Phone className="ml-2 h-4 w-4" />

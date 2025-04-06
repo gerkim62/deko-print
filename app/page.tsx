@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import Hero from "./_components/hero";
 import Image from "next/image";
+import BgSecondaryLogo from "@/components/layout/bg-secondary-logo";
 
 const ShopLandingPage = () => {
   // Service tabs data
@@ -210,6 +211,7 @@ const ShopLandingPage = () => {
     <>
       <Hero />
 
+      <BgSecondaryLogo />
       {/* Main Content */}
       <main
         id="products-and-services"

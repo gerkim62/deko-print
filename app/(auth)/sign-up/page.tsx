@@ -200,12 +200,12 @@ export default function SignUpPage() {
         </form>
       </Form>
 
-      <div className="text-center text-sm">
+      <div className="text-center">
         <p>
-          Already have an account?{" "}
+          Already have account?{" "}
           <Link
             href="/sign-in"
-            className="text-accent-foreground hover:underline"
+            className="text-blue-700 hover:underline"
           >
             Sign in
           </Link>
