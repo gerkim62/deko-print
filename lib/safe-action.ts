@@ -2,7 +2,9 @@ import {
   createSafeActionClient,
   InferSafeActionFnResult,
 } from "next-safe-action";
-import { formatFlattenedZodError } from "./format";
+// import { formatFlattenedZodError } from "./format";
+
+
 
 export const actionClient = createSafeActionClient({
   defaultValidationErrorsShape: "flattened",
@@ -33,7 +35,7 @@ export function getReadableActionResult(result: Result) {
   if (result.validationErrors)
     return {
       success: false,
-      message: formatFlattenedZodError(result.validationErrors),
+      message: ""//formatFlattenedZodError(result.validationErrors),
     };
 
   if (!result.data)
