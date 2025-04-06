@@ -1,0 +1,20 @@
+model Product {
+    id          String          @id
+    title       String
+    description String
+    tags        String[]
+    price       Float
+    image       String?
+    category    ProductCategory
+
+    stockRemaining Int
+
+    createdAt   DateTime      @default(now())
+    updatedAt   DateTime      @updatedAt
+    transactions Transaction[]
+}
+
+enum ProductCategory {
+    Pre_owned
+    Accessory
+}
