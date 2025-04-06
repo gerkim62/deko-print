@@ -68,6 +68,7 @@ export default function SignInPage() {
         router.push("/");
       }
     } catch (error) {
+        console.error(error)
       // Set global form error
       form.setError("root", {
         type: "manual",

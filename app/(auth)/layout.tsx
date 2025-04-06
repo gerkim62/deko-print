@@ -1,7 +1,6 @@
-import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { Card } from "@/components/ui/card";
+import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Authenticate",

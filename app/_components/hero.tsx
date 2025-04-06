@@ -2,7 +2,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowDown, Package, Phone, Printer, Utensils, Wrench } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {

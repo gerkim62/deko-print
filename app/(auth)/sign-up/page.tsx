@@ -80,6 +80,7 @@ export default function SignUpPage() {
         router.push("/sign-in?registered=true");
       }
     } catch (error) {
+        console.error(error)
       form.setError("root", {
         type: "manual",
         message: "An unexpected error occurred. Please try again.",
