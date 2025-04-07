@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import actionClient from "@/lib/safe-action";
 import { NewWalkInSaleSchema } from "@/validations/walk-in";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const addWalkIn = actionClient
@@ -46,6 +47,8 @@ const addWalkIn = actionClient
 
       return null; // Neither productId nor serviceId provided
     });
+
+    revalidatePath("/admin");
 
     if (!result) {
       return {
@@ -92,6 +95,8 @@ const deleteWalkIn = actionClient
 
       return walkIn;
     });
+
+    revalidatePath("/admin");
 
     if (!result) {
       return {

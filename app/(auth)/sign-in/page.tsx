@@ -20,6 +20,7 @@ import { Loader2, AlertCircle } from "lucide-react";
 import { authClient } from "@/lib/auth";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAfterAuth } from "../_hooks";
+import { toast } from "react-toastify";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),

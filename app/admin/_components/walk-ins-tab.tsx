@@ -49,6 +49,7 @@ import { addWalkIn, deleteWalkIn } from "@/actions/walk-in";
 import { getReadableActionResult } from "@/lib/safe-action";
 import { NewWalkInSaleSchema } from "@/validations/walk-in";
 import type { Product, Service, WalkIn } from "@prisma/client";
+import { toast } from "react-toastify";
 
 type Props = {
   walkIns: WalkIn[];
@@ -77,13 +78,13 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
   );
 
   const getProductTitle = (productId: string | null) => {
-    if (!productId) return "N/A";
+    if (!productId) return "-";
     const product = products.find((p) => p.id === productId);
     return product ? product.title : "Unknown Product";
   };
 
   const getServiceTitle = (serviceId: string | null) => {
-    if (!serviceId) return "N/A";
+    if (!serviceId) return "-";
     const service = services.find((s) => s.id === serviceId);
     return service ? service.title : "Unknown Service";
   };
@@ -101,30 +102,30 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
 
     const validationResult = NewWalkInSaleSchema.safeParse(walkInData);
 
-    if (!validationResult.success) return alert("Please fix the form");
+    if (!validationResult.success) return toast.error("Please fix the form");
 
     setLoading(true);
 
     const result = await addWalkIn(validationResult.data);
     const { message, success } = getReadableActionResult(result);
 
-    alert(message);
     setLoading(false);
-
-    if (!success) return; // Don't reset or hide
-
-    // Reset form state and close dialog on success
-    resetDialog();
-    setIsCreateDialogOpen(false);
+    if (success) {
+      toast.success(message);
+      // Reset form state and close dialog on success
+      resetDialog();
+      setIsCreateDialogOpen(false);
+    } else toast.error(message);
   };
 
   const handleDelete = async (id: number) => {
     setLoading(true);
 
     const result = await deleteWalkIn({ id });
-    const { message } = getReadableActionResult(result);
+    const { message, success } = getReadableActionResult(result);
 
-    alert(message);
+    if (success) toast.success(message);
+    else toast.error(message);
     setLoading(false);
   };
 
