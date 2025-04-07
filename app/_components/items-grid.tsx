@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import type { Product, Service } from "@prisma/client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 type ButtonTexts = {
   details: string;
@@ -181,8 +182,12 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
               >
                 {buttonTexts[tabId].details}
               </Button>
-              <Button className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                {buttonTexts[tabId].action}
+              <Button asChild className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 items-center justify-center flex">
+                <Link
+                href={`/order-intent/${item.id}`}
+                >
+                {buttonTexts[tabId].action} &rarr;
+                </Link>
               </Button>
             </CardFooter>
           </Card>

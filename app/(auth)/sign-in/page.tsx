@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Loader2, AlertCircle } from "lucide-react";
 import { authClient } from "@/lib/auth";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useAfterAuth } from "../_hooks";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -34,6 +35,8 @@ type SignInFormValues = z.infer<typeof signInSchema>;
 export default function SignInPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+
+  const afterAuth = useAfterAuth();
 
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(signInSchema),
@@ -65,10 +68,10 @@ export default function SignInPage() {
 
       if (data) {
         // Redirect to dashboard or home page after successful sign in
-        router.push("/");
+        router.replace(afterAuth);
       }
     } catch (error) {
-        console.error(error)
+      console.error(error);
       // Set global form error
       form.setError("root", {
         type: "manual",
@@ -157,7 +160,7 @@ export default function SignInPage() {
         <p>
           Don't have account?{" "}
           <Link
-            href="/sign-up"
+            href={`/sign-up?next=${afterAuth}`}
             className="text-blue-600 hover:underline"
           >
             Create Account

@@ -7,11 +7,13 @@ model Product {
     image       String?
     category    ProductCategory
 
+    orders  Order[]
+    walkIns WalkIn[]
+
     stockRemaining Int
 
-    createdAt   DateTime      @default(now())
-    updatedAt   DateTime      @updatedAt
-    transactions Transaction[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 enum ProductCategory {

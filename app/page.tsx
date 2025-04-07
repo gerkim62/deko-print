@@ -46,7 +46,13 @@ type AnyTabItem = ServiceTabItem | ProductTabItem;
 
 async function ShopLandingPage() {
   const servicesPromise = prisma.service.findMany();
-  const productsPromise = prisma.product.findMany();
+  const productsPromise = prisma.product.findMany({
+    where: {
+      stockRemaining: {
+        gt: 0,
+      },
+    },
+  });
 
   const [services, products] = await Promise.all([
     servicesPromise,
@@ -60,11 +66,13 @@ async function ShopLandingPage() {
       label: "Printing",
       icon: Printer,
       title: "Printing Solutions",
-      description: "High-quality printing for business and personal requirements",
+      description:
+        "High-quality printing for business and personal requirements",
       items: services.filter(
         (service) => service.category === ServiceCategory.Printing
       ),
-      emptyMessage: "No printing services are currently available. Please check back soon.",
+      emptyMessage:
+        "No printing services are currently available. Please check back soon.",
       itemType: "services",
     },
     {
@@ -76,7 +84,8 @@ async function ShopLandingPage() {
       items: services.filter(
         (service) => service.category === ServiceCategory.Repair
       ),
-      emptyMessage: "No repair services are currently available. Please check back soon.",
+      emptyMessage:
+        "No repair services are currently available. Please check back soon.",
       itemType: "services",
     },
     {
@@ -88,7 +97,8 @@ async function ShopLandingPage() {
       items: products.filter(
         (product) => product.category === ProductCategory.Accessory
       ),
-      emptyMessage: "No accessories are currently in stock. Please check back soon.",
+      emptyMessage:
+        "No accessories are currently in stock. Please check back soon.",
       itemType: "products",
     },
     {
@@ -100,7 +110,8 @@ async function ShopLandingPage() {
       items: products.filter(
         (product) => product.category === ProductCategory.Pre_owned
       ),
-      emptyMessage: "No pre-owned equipment is currently available. Please check back soon.",
+      emptyMessage:
+        "No pre-owned equipment is currently available. Please check back soon.",
       itemType: "products",
     },
   ];
@@ -109,8 +120,8 @@ async function ShopLandingPage() {
   const buttonTexts = {
     printing: { details: "Services", action: "Book Appointment" },
     repairs: { details: "Services", action: "Book Appointment" },
-    accessories: { details: "Details", action: "Order Now" },
-    secondhand: { details: "View Specifications", action: "Order Now" },
+    accessories: { details: "Details", action: "Place order" },
+    secondhand: { details: "View Specifications", action: "Place order " },
   } as const;
 
   return (
@@ -188,7 +199,8 @@ async function ShopLandingPage() {
               ) : (
                 <EmptyState
                   message={tab.emptyMessage}
-                  category={tab.itemType} />
+                  category={tab.itemType}
+                />
               )}
             </TabsContent>
           ))}

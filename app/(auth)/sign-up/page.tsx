@@ -1,11 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,9 +11,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Loader2, AlertCircle } from "lucide-react";
 import { authClient } from "@/lib/auth";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useAfterAuth } from "../_hooks";
 
 const signUpSchema = z
   .object({
@@ -39,6 +40,8 @@ type SignUpFormValues = z.infer<typeof signUpSchema>;
 export default function SignUpPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+
+  const afterAuth = useAfterAuth();
 
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
@@ -76,11 +79,10 @@ export default function SignUpPage() {
 
       if (data) {
         console.log("Sign up data:", data);
-        // Navigate to success page or login
-        router.push("/sign-in?registered=true");
+        router.replace(afterAuth);
       }
     } catch (error) {
-        console.error(error)
+      console.error(error);
       form.setError("root", {
         type: "manual",
         message: "An unexpected error occurred. Please try again.",
@@ -205,7 +207,7 @@ export default function SignUpPage() {
         <p>
           Already have account?{" "}
           <Link
-            href="/sign-in"
+            href={`/sign-in?next=${afterAuth}`}
             className="text-blue-700 hover:underline"
           >
             Sign in
