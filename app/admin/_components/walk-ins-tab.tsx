@@ -90,43 +90,55 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
   };
 
   const handleCreate = async () => {
-    // Prepare data according to the schema requirements
-    const walkInData = {
-      customerName: customerName || "Anonymous",
-      quantity,
-      pricePaid: pricePaid ? parseFloat(pricePaid) : undefined,
-      // Set only one of productId or serviceId based on the selected type
-      productId: selectedType === "product" ? selectedItemId : undefined,
-      serviceId: selectedType === "service" ? selectedItemId : undefined,
-    };
+    try {
+      // Prepare data according to the schema requirements
+      const walkInData = {
+        customerName: customerName || "Anonymous",
+        quantity,
+        pricePaid: pricePaid ? parseFloat(pricePaid) : undefined,
+        // Set only one of productId or serviceId based on the selected type
+        productId: selectedType === "product" ? selectedItemId : undefined,
+        serviceId: selectedType === "service" ? selectedItemId : undefined,
+      };
 
-    const validationResult = NewWalkInSaleSchema.safeParse(walkInData);
+      const validationResult = NewWalkInSaleSchema.safeParse(walkInData);
 
-    if (!validationResult.success) return toast.error("Please fix the form");
+      if (!validationResult.success) return toast.error("Please fix the form");
 
-    setLoading(true);
+      setLoading(true);
 
-    const result = await addWalkIn(validationResult.data);
-    const { message, success } = getReadableActionResult(result);
+      const result = await addWalkIn(validationResult.data);
+      const { message, success } = getReadableActionResult(result);
 
-    setLoading(false);
-    if (success) {
-      toast.success(message);
-      // Reset form state and close dialog on success
-      resetDialog();
-      setIsCreateDialogOpen(false);
-    } else toast.error(message);
+      setLoading(false);
+      if (success) {
+        toast.success(message);
+        // Reset form state and close dialog on success
+        resetDialog();
+        setIsCreateDialogOpen(false);
+      } else toast.error(message);
+    } catch (error) {
+      toast.error("An error occurred while adding the walk-in record.");
+      console.error("Error adding walk-in:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = async (id: number) => {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const result = await deleteWalkIn({ id });
-    const { message, success } = getReadableActionResult(result);
+      const result = await deleteWalkIn({ id });
+      const { message, success } = getReadableActionResult(result);
 
-    if (success) toast.success(message);
-    else toast.error(message);
-    setLoading(false);
+      if (success) toast.success(message);
+      else toast.error(message);
+    } catch (error) {
+      toast.error("An error occurred while deleting the walk-in record.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const resetDialog = () => {
