@@ -64,7 +64,9 @@ export function EditProductForm({ product, onSuccess }: Props) {
   }, [product]);
 
   // Form input handlers
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: string, value:string | number | string[] | null
+
+  ) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
