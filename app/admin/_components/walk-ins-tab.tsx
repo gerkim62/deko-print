@@ -135,6 +135,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
       if (success) toast.success(message);
       else toast.error(message);
     } catch (error) {
+      console.error("Error deleting walk-in:", error);
       toast.error("An error occurred while deleting the walk-in record.");
     } finally {
       setLoading(false);
