@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Authenticate",
@@ -31,7 +32,13 @@ export default function AuthLayout({
           </p>
         </div>
         <Card className="w-full max-w-md p-6 bg-background backdrop-blur-sm shadow-2xl border-primary-foreground/20">
-          {children}
+          <Suspense
+            fallback={
+              <div className="h-4 w-4 animate-pulse bg-muted rounded-full"></div>
+            }
+          >
+            {children}
+          </Suspense>
         </Card>
       </div>
     </div>
