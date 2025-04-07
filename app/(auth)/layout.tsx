@@ -50,10 +50,6 @@ const AuthSkeleton = () => {
 
       <div className="space-y-4">
         {/* Form field skeletons */}
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-20 bg-gray-200" />
-          <Skeleton className="h-10 w-full bg-gray-200" />
-        </div>
 
         <div className="space-y-2">
           <Skeleton className="h-4 w-16 bg-gray-200" />
