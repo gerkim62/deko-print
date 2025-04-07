@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -32,15 +33,50 @@ export default function AuthLayout({
           </p>
         </div>
         <Card className="w-full max-w-md p-6 bg-background backdrop-blur-sm shadow-2xl border-primary-foreground/20">
-          <Suspense
-            fallback={
-              <div className="h-4 w-4 animate-pulse bg-muted rounded-full"></div>
-            }
-          >
-            {children}
-          </Suspense>
+          <Suspense fallback={<AuthSkeleton />}>{children}</Suspense>
         </Card>
       </div>
     </div>
   );
 }
+
+const AuthSkeleton = () => {
+  return (
+    <div className="space-y-6">
+      <div className="space-y-2 text-center">
+        <Skeleton className="h-8 w-48 mx-auto bg-gray-200" />
+        <Skeleton className="h-4 w-64 mx-auto bg-gray-200" />
+      </div>
+
+      <div className="space-y-4">
+        {/* Form field skeletons */}
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-20 bg-gray-200" />
+          <Skeleton className="h-10 w-full bg-gray-200" />
+        </div>
+
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-16 bg-gray-200" />
+          <Skeleton className="h-10 w-full bg-gray-200" />
+        </div>
+
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-24 bg-gray-200" />
+          <Skeleton className="h-10 w-full bg-gray-200" />
+        </div>
+
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-36 bg-gray-200" />
+          <Skeleton className="h-10 w-full bg-gray-200" />
+        </div>
+
+        {/* Button skeleton */}
+        <Skeleton className="h-10 w-full mt-6 " />
+      </div>
+
+      <div className="text-center">
+        <Skeleton className="h-4 w-48 mx-auto bg-gray-200" />
+      </div>
+    </div>
+  );
+};
