@@ -50,6 +50,7 @@ import { getReadableActionResult } from "@/lib/safe-action";
 import { NewWalkInSaleSchema } from "@/validations/walk-in";
 import type { Product, Service, WalkIn } from "@prisma/client";
 import { toast } from "react-toastify";
+import { formatCurrency } from "@/lib/format";
 
 type Props = {
   walkIns: WalkIn[];
@@ -323,7 +324,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
                     <TableCell>{walkIn.quantity}</TableCell>
                     <TableCell>
                       {walkIn.pricePaid
-                        ? `$${walkIn.pricePaid.toFixed(2)}`
+                        ? `${formatCurrency(walkIn.pricePaid)}`
                         : "Unpaid"}
                     </TableCell>
                     <TableCell>
@@ -342,8 +343,8 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
                             <AlertDialogHeader>
                               <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                               <AlertDialogDescription>
-                                This action cannot be undone. This will
-                                permanently delete the walk-in record.
+                                You can't undo this action. If this was for a
+                                product, the stock will be added back.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>

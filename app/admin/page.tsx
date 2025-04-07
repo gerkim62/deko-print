@@ -43,7 +43,7 @@ export default async function AdminPage() {
         </TabsContent>
 
         <TabsContent value="products">
-          <ProductsTab />
+          <ProductsTab products={products} />
         </TabsContent>
 
         <TabsContent value="services">

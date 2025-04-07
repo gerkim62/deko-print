@@ -29,7 +29,7 @@ export default function RootLayout({
 
         <ToastContainer
           position="top-center"
-          toastClassName="!max-w-[90%] mt-2 !rounded-md !border"
+          toastClassName="!max-w-[95%] mt-2 !rounded-md !border"
         />
 
         <div className="min-h-screen bg-gray-50">
