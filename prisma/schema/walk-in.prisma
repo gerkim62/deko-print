@@ -11,3 +11,4 @@ model WalkIn {
     quantity  Int
     pricePaid Float? //null means he/she hasn't paid yet
 }
+

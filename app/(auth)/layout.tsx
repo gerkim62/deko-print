@@ -32,7 +32,7 @@ export default function AuthLayout({
             Your one-stop solution for all printing and repair needs
           </p>
         </div>
-        <Card className="w-full max-w-md p-6 bg-background backdrop-blur-sm shadow-2xl border-primary-foreground/20">
+        <Card className="w-full max-w-md p-6 pb-10 bg-background backdrop-blur-sm shadow-2xl border-primary-foreground/20">
           <Suspense fallback={<AuthSkeleton />}>{children}</Suspense>
         </Card>
       </div>
