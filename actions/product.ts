@@ -13,6 +13,8 @@ const addProduct = actionClient
     const { title, description, tags, price, image, category, stockRemaining } =
       parsedInput;
 
+    console.log(parsedInput);
+
     const createdProduct = await prisma.product.create({
       data: {
         title,
