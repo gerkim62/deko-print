@@ -3,17 +3,17 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { authClient } from "@/lib/auth";
-import { LogOut } from "lucide-react";
+import { LoaderCircleIcon, LogOut } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { useState } from "react";
 
 export function UserButton() {
@@ -48,7 +48,9 @@ export function UserButton() {
         className="relative h-8 w-8 rounded-full"
       >
         <Avatar className="h-8 w-8">
-          <AvatarFallback className="bg-muted">...</AvatarFallback>
+          <AvatarFallback className="bg-muted">
+            <LoaderCircleIcon className="h-4 w-4 animate-spin" />
+          </AvatarFallback>
         </Avatar>
       </Button>
     );

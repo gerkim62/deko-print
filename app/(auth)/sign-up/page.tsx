@@ -15,7 +15,7 @@ import { authClient } from "@/lib/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

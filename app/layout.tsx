@@ -3,6 +3,7 @@ import Navbar from "@/components/layout/navbar";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
+import NextTopLoader from "nextjs-toploader";
 
 const font = Nunito({
   variable: "--font-geist-mono",
@@ -23,6 +24,8 @@ export default function RootLayout({
   return (
     <html className="scroll-smooth" lang="en">
       <body className={` ${font.className} antialiased`}>
+        <NextTopLoader />
+
         <div className="min-h-screen bg-gray-50">
           <Navbar />
           {children}
