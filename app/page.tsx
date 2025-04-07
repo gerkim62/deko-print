@@ -178,6 +178,7 @@ async function ShopLandingPage() {
                   </p>
                 </div>
                 <Button
+                hidden
                   variant="outline"
                   className="flex items-center gap-2 self-start"
                 >

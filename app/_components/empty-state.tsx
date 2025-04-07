@@ -17,7 +17,7 @@ export function EmptyState({
         Nothing to show
       </h4>
       <p className="text-muted-foreground text-center mb-6">{message}</p>
-      <Button variant="outline">Browse other {category}</Button>
+      <Button hidden variant="outline">Browse other {category}</Button>
     </div>
   );
 }
