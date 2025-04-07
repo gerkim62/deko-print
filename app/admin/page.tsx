@@ -1,4 +1,3 @@
-"use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OrdersTab from "./_components/orders-tab";
 import ProductsTab from "./_components/products-tab";

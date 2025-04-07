@@ -1,7 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { PlusCircle, Pencil, Trash2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,14 +18,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -31,25 +31,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { PlusCircle, Trash2 } from "lucide-react";
+import { useState } from "react";
 
 import { PaginationControls } from "./pagination-controls";
 import { EmptyState } from "./ui/empty-state";
 
 // Import types from Prisma client
-import type { WalkIn, Product, Service } from "@prisma/client";
 import { addWalkIn, deleteWalkIn } from "@/actions/walk-in";
 import { getReadableActionResult } from "@/lib/safe-action";
 import { NewWalkInSaleSchema } from "@/validations/walk-in";
+import type { Product, Service, WalkIn } from "@prisma/client";
 
 type Props = {
   walkIns: WalkIn[];
@@ -123,7 +122,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
     setLoading(true);
 
     const result = await deleteWalkIn({ id });
-    const { message, success } = getReadableActionResult(result);
+    const { message } = getReadableActionResult(result);
 
     alert(message);
     setLoading(false);
