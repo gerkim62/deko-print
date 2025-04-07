@@ -156,7 +156,7 @@ export function EditProductForm({ product, onSuccess }: Props) {
       <div className="grid gap-2 py-2">
         <div className="grid grid-cols-4 items-center gap-2">
           <Label htmlFor="edit-title" className="text-right">
-            Title
+            Name
           </Label>
           <Input
             id="edit-title"

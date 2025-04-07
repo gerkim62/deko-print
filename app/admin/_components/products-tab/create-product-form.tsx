@@ -86,10 +86,8 @@ export function CreateProductForm({ onSuccess }: Props) {
     const validationResult = NewProductSchema.safeParse(formData);
 
     if (!validationResult.success) {
-      const errorMessages = validationResult.error.errors.map(
-        (error) => error.message
-      );
-      toast.error(errorMessages.join(", "));
+      const errorMessage = validationResult.error.errors[0].message
+      toast.error(errorMessage);
       setCreateLoading(false);
       return;
     }
@@ -166,7 +164,7 @@ export function CreateProductForm({ onSuccess }: Props) {
       <div className="grid gap-2 py-2">
         <div className="grid grid-cols-4 items-center gap-2">
           <Label htmlFor="title" className="text-right">
-            Title
+            Name
           </Label>
           <Input
             id="title"

@@ -79,8 +79,7 @@ export function ProductsTable({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[50px]">ID</TableHead>
-          <TableHead>Title</TableHead>
+          <TableHead>Name</TableHead>
           <TableHead className="hidden md:table-cell">Category</TableHead>
           <TableHead>Price</TableHead>
           <TableHead className="hidden md:table-cell">Stock</TableHead>
@@ -90,7 +89,6 @@ export function ProductsTable({
       <TableBody>
         {products.map((product) => (
           <TableRow key={product.id}>
-            <TableCell>{product.id}</TableCell>
             <TableCell>{product.title}</TableCell>
             <TableCell className="hidden md:table-cell">
               <Badge variant="outline">

@@ -38,7 +38,7 @@ const uploadFiles = actionClient
 
     if (!session) {
       return {
-        message: "You must be logged in to upload files",
+        message: "You must be logged in to upload.",
         success: false,
       };
     }
