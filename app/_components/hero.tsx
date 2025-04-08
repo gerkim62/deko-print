@@ -1,7 +1,15 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowDown, Package, Phone, Printer, Utensils, Wrench } from "lucide-react";
+import { location_details, name, working_hours } from "@/constants";
+import {
+  ArrowDown,
+  Package,
+  Phone,
+  Printer,
+  Utensils,
+  Wrench,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
@@ -12,9 +20,6 @@ export default function Hero() {
         <div className="absolute top-20 left-10 w-32 md:w-64 h-32 md:h-64 rounded-full bg-background"></div>
         <div className="absolute bottom-10 right-20 w-20 md:w-40 h-20 md:h-40 rounded-full bg-secondary"></div>
         <div className="absolute top-40 right-40 w-10 md:w-20 h-10 md:h-20 rounded-full bg-muted"></div>
-        
-        
-       
       </div>
 
       {/* Location Badge - Hidden on small screens, visible from medium screens up */}
@@ -33,7 +38,7 @@ export default function Hero() {
           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
           <circle cx="12" cy="10" r="3" />
         </svg>
-        Baraton, next to the market
+        {location_details}
       </Badge>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -41,7 +46,7 @@ export default function Hero() {
           <div className="text-center md:text-left w-full md:w-3/5 mb-8 md:mb-0">
             <div className="mb-4 md:mb-6">
               <h2 className="text-xl md:text-2xl font-bold text-accent mb-1">
-                Deko Print
+                {name}
               </h2>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
                 All Your <span className="text-accent">Needs</span>,{" "}
@@ -91,14 +96,14 @@ export default function Hero() {
               </svg>
               <div className="flex flex-wrap justify-center md:justify-start gap-x-1">
                 <span className="whitespace-nowrap text-sm md:text-base font-medium">
-                  Deko Print
+                  {name}
                 </span>
                 <span className="whitespace-nowrap text-sm md:text-base font-medium">
-                  • Baraton, next to the market
+                  • {location_details}
                 </span>
                 <span className="whitespace-nowrap text-sm md:text-base font-medium">
-                  <span className="hidden sm:inline"> •</span> Open 8AM - 8PM
-                  daily
+                  <span className="hidden sm:inline"> •</span>{" "}
+                  {working_hours["Monday-Friday"]}
                 </span>
               </div>
             </div>
