@@ -6,6 +6,8 @@ import WalkInsTab from "./_components/walk-ins-tab";
 import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
+import Link from "next/link";
+import { ArrowRight, BarChart3, LayoutDashboard } from "lucide-react";
 
 export default async function AdminPage() {
   const session = await auth.api.getSession({
@@ -46,9 +48,19 @@ export default async function AdminPage() {
 
   return (
     <div className="container min-h-screen mx-auto py-4 px-2 sm:px-4 md:py-10">
-      <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">
-        Admin Dashboard
-      </h1>
+      <div className="flex flex-wrap items-start md:items-center justify-between gap-2 sm:gap-4 mb-4 md:mb-6">
+        <h1 className="flex items-center gap-2 text-2xl sm:text-3xl font-bold tracking-tight">
+          <LayoutDashboard className="h-6 w-6 text-primary" />
+          Dashboard
+        </h1>
+        <Link
+          href="/admin/finance"
+          className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-xs sm:text-sm font-medium text-primary-foreground shadow hover:bg-primary/90"
+        >
+          View Finance
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Link>
+      </div>
 
       <Tabs defaultValue="walk-ins" className="w-full">
         <TabsList className="grid w-full grid-cols-4 md:grid-cols-4 mb-4">
