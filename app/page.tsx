@@ -15,7 +15,7 @@ import {
   ShoppingBag,
   Smartphone,
   Utensils,
-  Wrench
+  Wrench,
 } from "lucide-react";
 import { EmptyState } from "./_components/empty-state";
 import Hero from "./_components/hero";
@@ -132,8 +132,8 @@ async function ShopLandingPage() {
 
   // Button texts - could be customized per category if needed
   const buttonTexts = {
-    printing: { details: "Services", action: "WhatsApp us" },
-    repairs: { details: "Services", action: "WhatsApp us" },
+    printing: { details: "Services", action: "WhatsApp Us" },
+    repairs: { details: "Services", action: "WhatsApp Us" },
     accessories: { details: "Details", action: "Place order" },
     secondhand: { details: "View Specifications", action: "Place order " },
     snacks: { details: "Details", action: "Place order" },

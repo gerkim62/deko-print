@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import type { Product, Service } from "@prisma/client";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Phone } from "lucide-react";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/format";
 import { contacts } from "@/constants";
@@ -178,7 +178,26 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
               </p>
             </CardContent>
             <CardFooter className="flex justify-between pt-2 border-t border-border">
-              <div></div>
+              {itemType === "products" ? (
+                <div></div>
+              ) : (
+                // call us button
+                <Button
+                  asChild
+                  className="items-center justify-center flex"
+                >
+                  <a
+                    href={`tel:${contacts.calls[0]
+                      .replaceAll("+", "")
+                      .replaceAll(" ", "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Phone className="ml-2 h-4 w-4" />
+                    Call Us
+                  </a>
+                </Button>
+              )}
 
               {itemType !== "products" ? (
                 <Button

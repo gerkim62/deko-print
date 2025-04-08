@@ -9,7 +9,7 @@ const working_hours = {
   "Online Deliveries": "Available 24/7",
 } as const;
 
-const location_details = "Baraton, next to the Market" as const;
+const location_details = "Next to Baraton Market" as const;
 
 const location_county = "Nandi County" as const;
 
