@@ -5,13 +5,34 @@ import actionClient from "@/lib/safe-action";
 import { NewWalkInSaleSchema } from "@/validations/walk-in";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+
+async function getAdminSession() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (session?.user.role !== "ADMIN") {
+    return null;
+  }
+
+  return session;
+}
 
 const addWalkIn = actionClient
   .schema(NewWalkInSaleSchema)
   .action(async ({ parsedInput }) => {
+    const session = await getAdminSession();
+    if (!session) {
+      return {
+        message: "You are not authorized to add a walk-in sale",
+        success: false,
+      };
+    }
+
     const { customerName, quantity, pricePaid, productId, serviceId } =
       parsedInput;
-    console.log(parsedInput);
 
     const result = await prisma.$transaction(async (tx) => {
       if (productId) {
@@ -20,7 +41,7 @@ const addWalkIn = actionClient
           data: { stockRemaining: { decrement: quantity } },
         });
 
-        const walkIn = await tx.walkIn.create({
+        return await tx.walkIn.create({
           data: {
             customerName,
             quantity,
@@ -28,12 +49,10 @@ const addWalkIn = actionClient
             productId,
           },
         });
-
-        return walkIn;
       }
 
       if (serviceId) {
-        const walkIn = await tx.walkIn.create({
+        return await tx.walkIn.create({
           data: {
             customerName,
             quantity,
@@ -41,11 +60,9 @@ const addWalkIn = actionClient
             serviceId,
           },
         });
-
-        return walkIn;
       }
 
-      return null; // Neither productId nor serviceId provided
+      return null;
     });
 
     revalidatePath("/admin");
@@ -71,6 +88,14 @@ const DeleteWalkInSchema = z.object({
 const deleteWalkIn = actionClient
   .schema(DeleteWalkInSchema)
   .action(async ({ parsedInput }) => {
+    const session = await getAdminSession();
+    if (!session) {
+      return {
+        message: "You are not authorized to delete this walk-in sale",
+        success: false,
+      };
+    }
+
     const { id } = parsedInput;
 
     const result = await prisma.$transaction(async (tx) => {

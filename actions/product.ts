@@ -6,14 +6,34 @@ import { NewProductSchema } from "@/validations/product";
 import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+
+async function getAdminSession() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (session?.user.role !== "ADMIN") {
+    return null;
+  }
+
+  return session;
+}
 
 const addProduct = actionClient
   .schema(NewProductSchema)
   .action(async ({ parsedInput }) => {
+    const session = await getAdminSession();
+    if (!session) {
+      return {
+        success: false,
+        message: "You are not authorized to add a product",
+      };
+    }
+
     const { title, description, tags, price, image, category, stockRemaining } =
       parsedInput;
-
-    console.log(parsedInput);
 
     const createdProduct = await prisma.product.create({
       data: {
@@ -39,6 +59,14 @@ const addProduct = actionClient
 const updateProduct = actionClient
   .schema(NewProductSchema.partial().extend({ id: z.string() }))
   .action(async ({ parsedInput }) => {
+    const session = await getAdminSession();
+    if (!session) {
+      return {
+        success: false,
+        message: "You are not authorized to update this product",
+      };
+    }
+
     const {
       id,
       title,
@@ -49,8 +77,6 @@ const updateProduct = actionClient
       category,
       stockRemaining,
     } = parsedInput;
-
-    console.log("parsedInput", parsedInput);
 
     const updatedProduct = await prisma.product.update({
       where: { id },
@@ -77,10 +103,16 @@ const updateProduct = actionClient
 const deleteProduct = actionClient
   .schema(z.object({ id: z.string() }))
   .action(async ({ parsedInput }) => {
-    const { id } = parsedInput;
+    const session = await getAdminSession();
+    if (!session) {
+      return {
+        success: false,
+        message: "You are not authorized to delete this product",
+      };
+    }
 
-    const res = await prisma.product.delete({
-      where: { id },
+    await prisma.product.delete({
+      where: { id: parsedInput.id },
     });
 
     revalidatePath("/");
