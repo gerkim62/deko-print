@@ -72,7 +72,7 @@ export default async function AdminPage() {
 
         <TabsContent value="walk-ins">
           <WalkInsTab
-            products={products}
+            products={products.filter((product) => product.stockRemaining > 0)}
             services={services}
             walkIns={walkIns}
           />
