@@ -118,8 +118,8 @@ async function ShopLandingPage() {
 
   // Button texts - could be customized per category if needed
   const buttonTexts = {
-    printing: { details: "Services", action: "Book Appointment" },
-    repairs: { details: "Services", action: "Book Appointment" },
+    printing: { details: "Services", action: "WhatsApp us" },
+    repairs: { details: "Services", action: "WhatsApp us" },
     accessories: { details: "Details", action: "Place order" },
     secondhand: { details: "View Specifications", action: "Place order " },
   } as const;

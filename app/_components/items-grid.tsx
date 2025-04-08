@@ -17,6 +17,7 @@ import type { Product, Service } from "@prisma/client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/format";
+import { contacts } from "@/constants";
 
 type ButtonTexts = {
   details: string;
@@ -177,20 +178,35 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
               </p>
             </CardContent>
             <CardFooter className="flex justify-between pt-2 border-t border-border">
-              <Button
-                variant="outline"
-                className="focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {buttonTexts[tabId].details}
-              </Button>
-              <Button
-                asChild
-                className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 items-center justify-center flex"
-              >
-                <Link href={`/order-intent/${item.id}`}>
-                  {buttonTexts[tabId].action} &rarr;
-                </Link>
-              </Button>
+              <div></div>
+
+              {itemType !== "products" ? (
+                <Button
+                  asChild
+                  className="bg-green-500 hover:bg-green-600 text-white focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 items-center justify-center flex"
+                >
+                  <a
+                    href={`https://wa.me/${contacts.whatsapp[0]
+                      .replaceAll("+", "")
+                      .replaceAll(" ", "")}?text=${encodeURIComponent(
+                      `I'm interested in ${item.title}. I'm from your website.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {buttonTexts[tabId].action} &rarr;
+                  </a>
+                </Button>
+              ) : (
+                <Button
+                  asChild
+                  className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 items-center justify-center flex"
+                >
+                  <Link href={`/order-intent/${item.id}`}>
+                    {buttonTexts[tabId].action} &rarr;
+                  </Link>
+                </Button>
+              )}
             </CardFooter>
           </Card>
         ))}
