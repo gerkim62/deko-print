@@ -19,4 +19,5 @@ model Product {
 enum ProductCategory {
     Pre_owned
     Accessory
+    Snack
 }

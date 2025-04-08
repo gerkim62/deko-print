@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import prisma from "@/lib/prisma";
 import {
+  Cake,
   ChevronRight,
   LucideIcon,
   Printer,
@@ -114,6 +115,19 @@ async function ShopLandingPage() {
         "No pre-owned equipment is currently available. Please check back soon.",
       itemType: "products",
     },
+    {
+      id: "snacks",
+      label: "Snacks",
+      icon: Cake,
+      title: "Snacks",
+      description: "Sweet bhajias and other snacks",
+      items: products.filter(
+        (product) => product.category === ProductCategory.Snack
+      ),
+      emptyMessage:
+        "No snacks are currently available. Please check back soon.",
+      itemType: "products",
+    }
   ];
 
   // Button texts - could be customized per category if needed
@@ -122,6 +136,7 @@ async function ShopLandingPage() {
     repairs: { details: "Services", action: "WhatsApp us" },
     accessories: { details: "Details", action: "Place order" },
     secondhand: { details: "View Specifications", action: "Place order " },
+    snacks: { details: "Details", action: "Place order" },
   } as const;
 
   return (
@@ -141,7 +156,7 @@ async function ShopLandingPage() {
               Our Products and Services
             </h2>
             <TabsList
-              className="w-full flex flex-wrap justify-center md:justify-start gap-2 bg-transparent"
+              className="w-full flex flex-wrap justify-center md:justify-start gap-2 bg-transparent sm:mb-0 mb-4"
               aria-label="Services Categories"
             >
               {serviceTabs.map((tab) => (
@@ -178,7 +193,7 @@ async function ShopLandingPage() {
                   </p>
                 </div>
                 <Button
-                hidden
+                  hidden
                   variant="outline"
                   className="flex items-center gap-2 self-start"
                 >
