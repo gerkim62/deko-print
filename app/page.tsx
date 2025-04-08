@@ -9,6 +9,7 @@ import {
   Printer,
   ShoppingBag,
   Smartphone,
+  Utensils,
   Wrench,
 } from "lucide-react";
 import Hero from "./_components/hero";
@@ -118,7 +119,7 @@ async function ShopLandingPage() {
     {
       id: "snacks",
       label: "Snacks",
-      icon: Cake,
+      icon: Utensils,
       title: "Snacks",
       description: "Sweet bhajias and other snacks",
       items: products.filter(
@@ -127,7 +128,7 @@ async function ShopLandingPage() {
       emptyMessage:
         "No snacks are currently available. Please check back soon.",
       itemType: "products",
-    }
+    },
   ];
 
   // Button texts - could be customized per category if needed
