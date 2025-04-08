@@ -23,10 +23,10 @@ const Chart = ({ data }: ChartProps) => {
         <div>Orders</div>
         <div>Walk-ins</div>
       </div>
-      <div className="flex items-end h-[250px] gap-2">
+      <div className="flex relative items-end h-[250px] gap-2">
         {data.length === 0 && (
-          <div className="text-center text-sm text-muted-foreground">
-            No data available
+          <div className="text-center text-sm absolute inset-0 flex items-center justify-center">
+            No data to display
           </div>
         )}
         {data.map((item, index) => (
