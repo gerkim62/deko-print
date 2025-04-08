@@ -9,6 +9,5 @@ model WalkIn {
     serviceId String?
 
     quantity  Int
-    pricePaid Float? //null means he/she hasn't paid yet
+    pricePaid Float
 }
-

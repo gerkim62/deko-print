@@ -104,7 +104,8 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
 
       const validationResult = NewWalkInSaleSchema.safeParse(walkInData);
 
-      if (!validationResult.success) return toast.error("Please fix the form");
+      if (!validationResult.success)
+        return toast.error(validationResult.error.message);
 
       setLoading(true);
 
@@ -256,7 +257,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="pricePaid" className="text-right">
-                    Price Paid
+                    Total Price Paid
                   </Label>
                   <Input
                     id="pricePaid"
@@ -271,7 +272,9 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
               <DialogFooter>
                 <Button
                   type="submit"
-                  disabled={!selectedType || !selectedItemId || loading}
+                  disabled={
+                    !selectedType || !selectedItemId || !pricePaid || loading
+                  }
                   onClick={handleCreate}
                 >
                   {loading ? "Saving..." : "Save"}
