@@ -17,7 +17,7 @@ const createOrder = actionClient
       })
       .extend({
         productId: z.string().min(1, "Product ID is required"),
-        quantity: z.number().min(1, "Quantity must be at least 1"),
+        quantity: z.coerce.number().min(1, "Quantity must be at least 1"),
       })
   )
   .action(
