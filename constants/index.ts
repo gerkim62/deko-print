@@ -1,7 +1,7 @@
 const contacts = {
   emails: [],
-  whatsapp: ["+254 987 99577"],
-  calls: ["+254 940 05675"],
+  whatsapp: ["+2547 98 799 577"],
+  calls: ["+2547 94 005 675"],
 } as const;
 
 const working_hours = {
