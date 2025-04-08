@@ -21,7 +21,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
+        <nav className="hidden m:flex items-center space-x-1">
           <Button
             variant="ghost"
             size="sm"

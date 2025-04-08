@@ -17,6 +17,7 @@ import {
   LogOut,
   ShoppingBag,
   LayoutDashboard,
+  BarChart,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "nextjs-toploader/app";
@@ -121,15 +122,23 @@ export function UserButton() {
           </Link>
         </DropdownMenuItem>
         {role === UserRole.ADMIN && (
-          <DropdownMenuItem asChild>
-            <Link
-              href="/admin"
-              className="cursor-pointer flex items-center"
-            >
-              <LayoutDashboard className="mr-2 h-4 w-4" />
-              <span>Dashboard</span>
-            </Link>
-          </DropdownMenuItem>
+          <>
+            <DropdownMenuItem asChild>
+              <Link href="/admin" className="cursor-pointer flex items-center">
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                <span>Dashboard</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                href="/admin/finance"
+                className="cursor-pointer flex items-center"
+              >
+                <BarChart className="mr-2 h-4 w-4" />
+                <span>Finance</span>
+              </Link>
+            </DropdownMenuItem>
+          </>
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem
