@@ -27,9 +27,11 @@ import type { Product } from "@prisma/client";
 type Props = {
   product: Product;
   onSuccess: () => void;
+
+  setCanClose: (canClose: boolean) => void;
 };
 
-export function EditProductForm({ product, onSuccess }: Props) {
+export function EditProductForm({ product, onSuccess, setCanClose }: Props) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [editLoading, setEditLoading] = useState(false);
@@ -44,6 +46,10 @@ export function EditProductForm({ product, onSuccess }: Props) {
     stockRemaining: 0,
     tags: [],
   });
+
+  useEffect(() => {
+    setCanClose(!editLoading);
+  }, [editLoading, setCanClose]);
 
   useEffect(() => {
     if (product) {

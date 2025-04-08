@@ -53,9 +53,7 @@ export default function ProductsTab({ products }: Props) {
           </div>
           <Dialog
             open={isCreateDialogOpen}
-            onOpenChange={(open) => {
-              canClose && setIsCreateDialogOpen(open);
-            }}
+            onOpenChange={(open) => canClose && setIsCreateDialogOpen(open)}
           >
             <DialogTrigger asChild>
               <Button>

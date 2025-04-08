@@ -52,6 +52,8 @@ export function ProductsTable({
 }: Props) {
   const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
 
+  const [canClose, setCanClose] = useState(false);
+
   const handleDelete = async (id: string) => {
     setDeleteLoading(id);
 
@@ -106,7 +108,7 @@ export function ProductsTable({
                 <Dialog
                   open={isEditDialogOpen && currentProduct?.id === product.id}
                   onOpenChange={(open) => {
-                    if (!open) {
+                    if (!open && canClose) {
                       setIsEditDialogOpen(false);
                       setCurrentProduct(null);
                     }
@@ -124,6 +126,7 @@ export function ProductsTable({
                   </DialogTrigger>
                   {currentProduct && (
                     <EditProductForm
+                      setCanClose={setCanClose}
                       product={currentProduct}
                       onSuccess={() => {
                         setIsEditDialogOpen(false);
@@ -133,7 +136,13 @@ export function ProductsTable({
                   )}
                 </Dialog>
 
-                <AlertDialog>
+                <AlertDialog
+                  onOpenChange={(open) => {
+                    if (!open && !deleteLoading) {
+                      setDeleteLoading(null);
+                    }
+                  }}
+                >
                   <AlertDialogTrigger asChild>
                     <Button variant="outline" size="icon" className="h-8 w-8">
                       <Trash2 className="h-4 w-4" />
