@@ -31,6 +31,22 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  if (
+    url.origin === "https://fonts.googleapis.com" ||
+    url.origin === "https://fonts.gstatic.com"
+  ) {
+    event.respondWith(
+      caches.open("google-fonts-cache").then(async (cache) => {
+        const cachedResponse = await cache.match(event.request);
+        if (cachedResponse) return cachedResponse;
+
+        const networkResponse = await fetch(event.request);
+        cache.put(event.request, networkResponse.clone());
+        return networkResponse;
+      })
+    );
+  }
+
   event.respondWith(
     fetch(event.request).catch((error) => {
       if (event.request.mode === "navigate") {
