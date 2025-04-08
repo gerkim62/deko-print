@@ -11,7 +11,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { authClient } from "@/lib/auth";
-import { LoaderCircleIcon, LogOut } from "lucide-react";
+import { UserRole } from "@prisma/client";
+import {
+  LoaderCircleIcon,
+  LogOut,
+  ShoppingBag,
+  LayoutDashboard,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "nextjs-toploader/app";
 import { useState } from "react";
@@ -19,6 +25,7 @@ import { useState } from "react";
 export function UserButton() {
   const router = useRouter();
   const { data: session, isPending, error } = authClient.useSession();
+  const role = session?.user?.role || UserRole.REGULAR; //OR ADMIN
 
   const [isSigningOut, setIsSigningOut] = useState(false);
 
@@ -106,6 +113,24 @@ export function UserButton() {
             </p>
           </div>
         </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href="/my/orders" className="cursor-pointer flex items-center">
+            <ShoppingBag className="mr-2 h-4 w-4" />
+            <span>My Orders</span>
+          </Link>
+        </DropdownMenuItem>
+        {role === UserRole.ADMIN && (
+          <DropdownMenuItem asChild>
+            <Link
+              href="/admin"
+              className="cursor-pointer flex items-center"
+            >
+              <LayoutDashboard className="mr-2 h-4 w-4" />
+              <span>Dashboard</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer flex items-center"

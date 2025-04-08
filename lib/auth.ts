@@ -1,6 +1,10 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "@/lib/prisma";
+import { inferAdditionalFields } from "better-auth/client/plugins";
+import { createAuthClient } from "better-auth/react"; // make sure to import from better-auth/react
+import { nextCookies } from "better-auth/next-js";
+import { UserRole } from "@prisma/client";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -10,13 +14,21 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [nextCookies()],
-  
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        defaultValue: UserRole.REGULAR,
+        input: false,
+        references: {
+          model: "User",
+          field: "role",
+        },
+      },
+    },
+  },
 });
 
-import { createAuthClient } from "better-auth/react"; // make sure to import from better-auth/react
-import { nextCookies } from "better-auth/next-js";
-
 export const authClient = createAuthClient({
-  //you can pass client configuration here
-  
+  plugins: [inferAdditionalFields<typeof auth>()],
 });
