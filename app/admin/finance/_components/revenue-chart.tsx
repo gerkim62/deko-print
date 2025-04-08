@@ -17,6 +17,8 @@ const Chart = ({ data }: ChartProps) => {
     ...data.map((item) => Math.max(item.orders, item.walkIns))
   );
 
+
+
   return (
     <div className="h-[300px] w-full">
       <div className="flex items-center justify-between mb-2 text-sm text-muted-foreground">
@@ -24,7 +26,7 @@ const Chart = ({ data }: ChartProps) => {
         <div>Walk-ins</div>
       </div>
       <div className="flex relative items-end h-[250px] gap-2">
-        {data.length === 0 && (
+        {maxValue === 0 && (
           <div className="text-center text-sm absolute inset-0 flex items-center justify-center">
             No data to display
           </div>
