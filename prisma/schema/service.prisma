@@ -3,7 +3,7 @@ model Service {
     title         String
     description   String
     tags          String[]
-    startingPrice Float?
+    startingPrice Float
     image         String?
     category      ServiceCategory
 
