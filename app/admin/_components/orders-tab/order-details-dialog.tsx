@@ -131,7 +131,7 @@ export function OrderDetailsDialog({
                 <div className="text-sm font-medium">Price Paid:</div>
                 <div className="text-sm">
                   {order.pricePaid
-                    ? `$${order.pricePaid.toFixed(2)}`
+                    ? `${formatCurrency(order.pricePaid)}`
                     : "Unpaid"}
                 </div>
 

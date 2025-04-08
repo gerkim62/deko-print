@@ -12,6 +12,7 @@ import { PaginationControls } from "../pagination-controls"
 import { EmptyState } from "../ui/empty-state"
 import { OrderCard } from "./order-card" 
 import { OrderDetailsDialog } from "./order-details-dialog"
+import { formatCurrency } from "@/lib/format"
 export type OrderWithProductAndCustomer = Order & {
   product: Product
   customer: User
@@ -78,7 +79,7 @@ export default function OrdersTab({ orders }: Props) {
                           {order.status}
                         </Badge>
                       </TableCell>
-                      <TableCell>{order.pricePaid ? `$${order.pricePaid.toFixed(2)}` : "Unpaid"}</TableCell>
+                      <TableCell>{order.pricePaid ? `${formatCurrency(order.pricePaid)}` : "Unpaid"}</TableCell>
                       <TableCell>
                         <Button
                           variant="outline"

@@ -67,7 +67,7 @@ export function OrderCard({ order, onViewDetails }: OrderCardProps) {
               </div>
               <div className="text-sm">
                 {order.pricePaid
-                  ? `$${formatCurrency(order.pricePaid)}`
+                  ? `${formatCurrency(order.pricePaid)}`
                   : `${formatCurrency(order.product.price * order.quantity)}`}
               </div>
 
