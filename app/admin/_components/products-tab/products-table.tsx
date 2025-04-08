@@ -155,8 +155,8 @@ export function ProductsTable({
                       <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                       <AlertDialogDescription>
                         This action cannot be undone. This will permanently
-                        delete the product. All orders associated with this
-                        product will also be deleted.
+                        delete the product. Deletion will fail if there are
+                        orders associated with this product.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

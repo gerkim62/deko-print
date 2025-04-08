@@ -111,16 +111,36 @@ const deleteProduct = actionClient
       };
     }
 
-    await prisma.product.delete({
-      where: { id: parsedInput.id },
-    });
+    try {
+      await prisma.product.delete({
+        where: { id: parsedInput.id },
+      });
 
-    revalidatePath("/");
+      revalidatePath("/");
 
-    return {
-      success: true,
-      message: "Product deleted successfully",
-    };
+      return {
+        success: true,
+        message: "Product deleted successfully",
+      };
+    } catch (error) {
+      // Check if the error is related to a foreign key constraint violation
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2003"
+      ) {
+        return {
+          success: false,
+          message:
+            "Cannot delete product because it is associated with an order.",
+        };
+      }
+
+      // Handle other possible errors
+      return {
+        success: false,
+        message: "An error occurred while deleting the product",
+      };
+    }
   });
 
 export { addProduct, updateProduct, deleteProduct };
