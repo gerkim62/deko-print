@@ -22,7 +22,7 @@ import { getReadableActionResult } from "@/lib/safe-action";
 import { compressImage } from "@/lib/utils";
 import type { z } from "zod";
 import type { NewProductSchema } from "@/validations/product";
-import type { Product } from "@prisma/client";
+import { ProductCategory, type Product } from "@prisma/client";
 
 type Props = {
   product: Product;
@@ -202,14 +202,12 @@ export function EditProductForm({ product, onSuccess, setCanClose }: Props) {
             value={formData.category}
             onValueChange={(value) => handleInputChange("category", value)}
           >
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="Accessory" id="edit-accessory" />
-              <Label htmlFor="edit-accessory">Accessory</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="Pre_owned" id="edit-pre-owned" />
-              <Label htmlFor="edit-pre-owned">Pre-owned</Label>
-            </div>
+            {Object.values(ProductCategory).map((category) => (
+              <div key={category} className="flex items-center space-x-2">
+                <RadioGroupItem value={category} id={category} />
+                <Label htmlFor={category}>{category.replace("_", "-")}</Label>
+              </div>
+            ))}
           </RadioGroup>
         </div>
         <div className="grid grid-cols-4 items-center gap-2">

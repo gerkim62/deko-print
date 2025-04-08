@@ -26,6 +26,7 @@ import { addProduct } from "@/actions/product";
 import { z } from "zod";
 import { NewProductSchema } from "@/validations/product";
 import { compressImage } from "@/lib/utils";
+import { ProductCategory } from "@prisma/client";
 
 type Props = {
   onSuccess: () => void;
@@ -206,14 +207,12 @@ export function CreateProductForm({ onSuccess, setCanClose }: Props) {
             value={formData.category}
             onValueChange={(value) => handleInputChange("category", value)}
           >
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="Accessory" id="accessory" />
-              <Label htmlFor="accessory">Accessory</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="Pre_owned" id="pre-owned" />
-              <Label htmlFor="pre-owned">Pre-owned</Label>
-            </div>
+            {Object.values(ProductCategory).map((category) => (
+              <div key={category} className="flex items-center space-x-2">
+                <RadioGroupItem value={category} id={category} />
+                <Label htmlFor={category}>{category.replace("_", "-")}</Label>
+              </div>
+            ))}
           </RadioGroup>
         </div>
         <div className="grid grid-cols-4 items-center gap-2">
