@@ -27,6 +27,8 @@ export default function ProductsTab({ products }: Props) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<Product | null>(null);
 
+  const [canClose, setCanClose] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const totalPages = Math.ceil(products.length / itemsPerPage);
@@ -52,7 +54,7 @@ export default function ProductsTab({ products }: Props) {
           <Dialog
             open={isCreateDialogOpen}
             onOpenChange={(open) => {
-              setIsCreateDialogOpen(open);
+              canClose && setIsCreateDialogOpen(open);
             }}
           >
             <DialogTrigger asChild>
@@ -61,7 +63,10 @@ export default function ProductsTab({ products }: Props) {
                 Add Product
               </Button>
             </DialogTrigger>
-            <CreateProductForm onSuccess={() => setIsCreateDialogOpen(false)} />
+            <CreateProductForm
+              setCanClose={setCanClose}
+              onSuccess={() => setIsCreateDialogOpen(false)}
+            />
           </Dialog>
         </div>
       </CardHeader>

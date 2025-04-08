@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,15 +25,21 @@ import { getReadableActionResult } from "@/lib/safe-action";
 import { addProduct } from "@/actions/product";
 import { z } from "zod";
 import { NewProductSchema } from "@/validations/product";
+import { compressImage } from "@/lib/utils";
 
 type Props = {
   onSuccess: () => void;
+  setCanClose: (canClose: boolean) => void;
 };
 
-export function CreateProductForm({ onSuccess }: Props) {
+export function CreateProductForm({ onSuccess, setCanClose }: Props) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [createLoading, setCreateLoading] = useState(false);
+
+  useEffect(() => {
+    setCanClose(!createLoading);
+  }, [createLoading]);
 
   // Form data state
   const [formData, setFormData] = useState<z.infer<typeof NewProductSchema>>({
@@ -98,8 +104,18 @@ export function CreateProductForm({ onSuccess }: Props) {
       // Upload image if provided
       const file = fileInputRef.current?.files?.[0];
       if (file && imagePreview) {
+        // Compress the image before uploading
+        const compressedFile = await toast.promise(compressImage(file), {
+          pending: "Processing image...",
+          error: "Failed to compress image",
+        });
+        if (!compressedFile) {
+          toast.error("Failed to compress image");
+          return;
+        }
+
         const formData = new FormData();
-        formData.append("files", file);
+        formData.append("files", compressedFile);
 
         const uploadResult = await toast.promise(uploadFiles(formData), {
           pending: "Uploading image...",

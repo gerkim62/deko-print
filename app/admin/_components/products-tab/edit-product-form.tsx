@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState, useRef, useEffect } from "react";
 import { Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,10 +19,9 @@ import { toast } from "react-toastify";
 import { updateProduct } from "@/actions/product";
 import { uploadFiles } from "@/actions/files";
 import { getReadableActionResult } from "@/lib/safe-action";
+import { compressImage } from "@/lib/utils";
 import type { z } from "zod";
 import type { NewProductSchema } from "@/validations/product";
-
-// Import types from Prisma client
 import type { Product } from "@prisma/client";
 
 type Props = {
@@ -36,7 +34,6 @@ export function EditProductForm({ product, onSuccess }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [editLoading, setEditLoading] = useState(false);
 
-  // Form data state
   const [formData, setFormData] = useState<
     Partial<z.infer<typeof NewProductSchema>>
   >({
@@ -45,10 +42,9 @@ export function EditProductForm({ product, onSuccess }: Props) {
     category: "Accessory",
     price: 0,
     stockRemaining: 0,
-    tags: [] as string[],
+    tags: [],
   });
 
-  // Initialize form data when product changes
   useEffect(() => {
     if (product) {
       setFormData({
@@ -63,9 +59,9 @@ export function EditProductForm({ product, onSuccess }: Props) {
     }
   }, [product]);
 
-  // Form input handlers
-  const handleInputChange = (field: string, value:string | number | string[] | null
-
+  const handleInputChange = (
+    field: string,
+    value: string | number | string[] | null
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -95,30 +91,43 @@ export function EditProductForm({ product, onSuccess }: Props) {
     try {
       let imageUrl = product.image;
 
-      // Upload new image if provided
       const file = fileInputRef.current?.files?.[0];
       const shouldUploadImage =
         imagePreview && file && imagePreview !== product.image;
 
       if (shouldUploadImage) {
+        const compressedFile = await toast.promise(compressImage(file), {
+          pending: "Processing image...",
+          error: "Failed to compress image",
+        });
+
+        if (!compressedFile) {
+          toast.error("Failed to compress image");
+          setEditLoading(false);
+          return;
+        }
+
         const formData = new FormData();
-        formData.append("files", file);
+        formData.append("files", compressedFile);
 
         const uploadResult = await toast.promise(uploadFiles(formData), {
           pending: "Uploading image...",
+          error: "Image upload failed",
         });
+
+        const { message: imgMsg, success: imgSuccess } =
+          getReadableActionResult(uploadResult);
         const uploadedUrl = uploadResult?.data?.data?.uploaded?.[0]?.url;
 
-        if (uploadedUrl) {
-          imageUrl = uploadedUrl;
-        } else {
-          console.warn("Image upload returned no URL,");
-          toast.error("Image upload failed. Please try again.");
+        if (!imgSuccess || !uploadedUrl) {
+          toast.error(imgMsg);
+          setEditLoading(false);
           return;
         }
+
+        imageUrl = uploadedUrl;
       }
 
-      // Update the product with form data
       const result = await toast.promise(
         updateProduct({
           id: product.id,
