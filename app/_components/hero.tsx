@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { location_details, name, working_hours } from "@/constants";
+import { location_details, name } from "@/constants";
 import {
   ArrowDown,
   Package,
