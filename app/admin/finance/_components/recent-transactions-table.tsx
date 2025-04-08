@@ -14,7 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatCurrency, formatDate, formatDateTime } from "@/lib/format";
+import { formatCurrency, formatDateTime } from "@/lib/format";
 import type { Transaction } from "../_types";
 
 // Server component that receives data as props
@@ -53,7 +53,7 @@ export function RecentTransactionsTable({
               {transactions.map((transaction) => (
                 <TableRow key={transaction.id}>
                   <TableCell className="font-medium">
-                    {formatDate(transaction.date)}
+                    {formatDateTime(transaction.date)}
                   </TableCell>
                   <TableCell>{transaction.description}</TableCell>
                   <TableCell>{transaction.customer}</TableCell>

@@ -124,17 +124,24 @@ export async function getRevenueData() {
   };
 }
 
-export async function getTopProducts(): Promise<ProductPerformanceItem[]> {
-  const products = await prisma.product.findMany({
-    include: {
-      orders: {
-        where: {
-          pricePaid: { not: null },
+export async function getTopItems(): Promise<ProductPerformanceItem[]> {
+  const [products, services] = await Promise.all([
+    prisma.product.findMany({
+      include: {
+        orders: {
+          where: {
+            pricePaid: { not: null },
+          },
         },
+        walkIns: true,
       },
-      walkIns: true,
-    },
-  });
+    }),
+    prisma.service.findMany({
+      include: {
+        walkIns: true,
+      },
+    }),
+  ]);
 
   const productPerformance = products.map((product) => {
     const orderRevenue = product.orders.reduce(
@@ -164,10 +171,34 @@ export async function getTopProducts(): Promise<ProductPerformanceItem[]> {
       revenue: totalRevenue,
       unitsSold: totalUnitsSold,
       stockRemaining: product.stockRemaining,
+      type: "product",
     };
   });
 
-  return productPerformance.sort((a, b) => b.revenue - a.revenue).slice(0, 5);
+  const servicePerformance = services.map((service) => {
+    const walkInRevenue = service.walkIns.reduce(
+      (sum, walkIn) => sum + walkIn.pricePaid,
+      0
+    );
+    const unitsSold = service.walkIns.reduce(
+      (sum, walkIn) => sum + walkIn.quantity,
+      0
+    );
+
+    return {
+      id: service.id,
+      title: service.title,
+      category: formatCategory(service.category),
+      revenue: walkInRevenue,
+      unitsSold,
+      stockRemaining: null, // Services don't have stock
+      type: "service",
+    };
+  });
+
+  return [...productPerformance, ...servicePerformance]
+    .sort((a, b) => b.revenue - a.revenue)
+    .slice(0, 5);
 }
 
 export async function getRecentTransactions(): Promise<Transaction[]> {

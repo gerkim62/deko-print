@@ -18,14 +18,16 @@ export function ProductPerformanceList({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Top Performing Products</CardTitle>
-        <CardDescription>Products generating the most revenue</CardDescription>
+        <CardTitle>Top Performing Items</CardTitle>
+        <CardDescription>
+          Products and services generating the most revenue
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           {products.length === 0 && (
             <div className="text-center text-sm text-muted-foreground">
-              No products available
+              No items available
             </div>
           )}
           {products.map((product) => (
@@ -37,7 +39,10 @@ export function ProductPerformanceList({
                 <div className="flex items-center gap-2">
                   <Badge variant="outline">{product.category}</Badge>
                   <p className="text-xs text-muted-foreground">
-                    {product.unitsSold} sold • {product.stockRemaining} in stock
+                    {product.unitsSold} sold
+                    {product.stockRemaining !== null
+                      ? ` • ${product.stockRemaining} in stock`
+                      : " • Service offered."}
                   </p>
                 </div>
               </div>

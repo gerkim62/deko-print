@@ -9,7 +9,7 @@ import { ProductPerformanceList } from "./_components/product-performance-list";
 import {
   getRevenueSummary,
   getRevenueData,
-  getTopProducts,
+  getTopItems,
   getRecentTransactions,
 } from "./_lib/data-service";
 import { headers } from "next/headers";
@@ -44,7 +44,7 @@ export default async function FinanceDashboardPage() {
     await Promise.all([
       getRevenueSummary(),
       getRevenueData(),
-      getTopProducts(),
+      getTopItems(),
       getRecentTransactions(),
     ]);
 

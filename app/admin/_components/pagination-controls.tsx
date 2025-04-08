@@ -18,6 +18,40 @@ interface PaginationControlsProps {
 export function PaginationControls({ currentPage, totalPages, onPageChange }: PaginationControlsProps) {
   if (totalPages <= 1) return null
 
+  const getPageNumbers = () => {
+    const pages: (number | "...")[] = []
+    const delta = 1 // number of neighbors around current page
+
+    const range = (start: number, end: number) => {
+      return Array.from({ length: end - start + 1 }, (_, i) => start + i)
+    }
+
+    if (totalPages <= 7) {
+      return range(1, totalPages)
+    }
+
+    pages.push(1)
+
+    if (currentPage > 3) {
+      pages.push("...")
+    }
+
+    const start = Math.max(2, currentPage - delta)
+    const end = Math.min(totalPages - 1, currentPage + delta)
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i)
+    }
+
+    if (currentPage < totalPages - 2) {
+      pages.push("...")
+    }
+
+    pages.push(totalPages)
+
+    return pages
+  }
+
   return (
     <Pagination className="mt-4">
       <PaginationContent>
@@ -28,11 +62,18 @@ export function PaginationControls({ currentPage, totalPages, onPageChange }: Pa
           />
         </PaginationItem>
 
-        {Array.from({ length: totalPages }).map((_, i) => (
-          <PaginationItem key={i}>
-            <PaginationLink isActive={currentPage === i + 1} onClick={() => onPageChange(i + 1)}>
-              {i + 1}
-            </PaginationLink>
+        {getPageNumbers().map((page, idx) => (
+          <PaginationItem key={idx}>
+            {page === "..." ? (
+              <span className="px-2 text-muted-foreground">...</span>
+            ) : (
+              <PaginationLink
+                isActive={currentPage === page}
+                onClick={() => onPageChange(page)}
+              >
+                {page}
+              </PaginationLink>
+            )}
           </PaginationItem>
         ))}
 
@@ -46,4 +87,3 @@ export function PaginationControls({ currentPage, totalPages, onPageChange }: Pa
     </Pagination>
   )
 }
-
