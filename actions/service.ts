@@ -38,6 +38,8 @@ const addService = actionClient
         category: parsedInput.category,
         startingPrice: parsedInput.startingPrice,
         tags: parsedInput.tags,
+        image: parsedInput.image,
+        
       },
     });
 

@@ -16,6 +16,7 @@ import Image from "next/image";
 import type { Product, Service } from "@prisma/client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { formatCurrency } from "@/lib/format";
 
 type ButtonTexts = {
   details: string;
@@ -54,11 +55,11 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
     itemType: "products" | "services"
   ) => {
     if (itemType === "products" && "price" in item) {
-      return `$${item.price.toFixed(2)}`;
+      return `${formatCurrency(item.price)}`;
     } else if (itemType === "services" && "startingPrice" in item) {
       const startingPrice = item.startingPrice;
       return startingPrice
-        ? `Starting at $${startingPrice.toFixed(2)}`
+        ? `Starting at ${formatCurrency(startingPrice)}`
         : "Contact for pricing";
     } else return "N/A";
   };
@@ -182,11 +183,12 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
               >
                 {buttonTexts[tabId].details}
               </Button>
-              <Button asChild className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 items-center justify-center flex">
-                <Link
-                href={`/order-intent/${item.id}`}
-                >
-                {buttonTexts[tabId].action} &rarr;
+              <Button
+                asChild
+                className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 items-center justify-center flex"
+              >
+                <Link href={`/order-intent/${item.id}`}>
+                  {buttonTexts[tabId].action} &rarr;
                 </Link>
               </Button>
             </CardFooter>
