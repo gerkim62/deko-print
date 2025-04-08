@@ -2,12 +2,17 @@ import {
   DollarSignIcon,
   PackageIcon,
   ShoppingCartIcon,
-  TimerIcon
+  TimerIcon,
 } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/format";
 import type { RevenueSummary } from "../_types";
+
+function getPercentage(part: number, total: number): string {
+  if (!total || isNaN(part)) return "0.0%";
+  return ((part / total) * 100).toFixed(1) + "%";
+}
 
 // This component receives data as props from the server component
 export function FinanceSummaryCards({ data }: { data: RevenueSummary }) {
@@ -23,7 +28,6 @@ export function FinanceSummaryCards({ data }: { data: RevenueSummary }) {
             {formatCurrency(data.totalRevenue)}
           </div>
           <p className="text-xs text-muted-foreground">
-            {/* just any text */}
             Revenue from all sources
           </p>
         </CardContent>
@@ -39,8 +43,8 @@ export function FinanceSummaryCards({ data }: { data: RevenueSummary }) {
             {formatCurrency(data.orderRevenue)}
           </div>
           <p className="text-xs text-muted-foreground">
-            {((data.orderRevenue / data.totalRevenue) * 100).toFixed(1)}% of
-            total revenue
+            {getPercentage(data.orderRevenue, data.totalRevenue)} of total
+            revenue
           </p>
         </CardContent>
       </Card>
@@ -55,8 +59,8 @@ export function FinanceSummaryCards({ data }: { data: RevenueSummary }) {
             {formatCurrency(data.walkInRevenue)}
           </div>
           <p className="text-xs text-muted-foreground">
-            {((data.walkInRevenue / data.totalRevenue) * 100).toFixed(1)}% of
-            total revenue
+            {getPercentage(data.walkInRevenue, data.totalRevenue)} of total
+            revenue
           </p>
         </CardContent>
       </Card>
@@ -74,7 +78,7 @@ export function FinanceSummaryCards({ data }: { data: RevenueSummary }) {
           </div>
           <span className="text-xs text-muted-foreground flex items-center gap-1">
             <span className="text-amber-500 flex items-center">
-              {((data.pendingPayments / data.totalRevenue) * 100).toFixed(1)}%
+              {getPercentage(data.pendingPayments, data.totalRevenue)}
             </span>{" "}
             of potential revenue
           </span>
