@@ -2,24 +2,24 @@
 
 import { deleteOrder, markOrderAsFullfilled } from "@/actions/orders";
 import {
-    AlertDialog,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { formatCurrency, formatDateTime } from "@/lib/format";
 import { getReadableActionResult } from "@/lib/safe-action";
@@ -63,7 +63,7 @@ export function OrderDetailsDialog({
         toast.error(message);
       }
     } catch (error) {
-        console.error("Error deleting order:", error);
+      console.error("Error deleting order:", error);
       toast.error("Error deleting order. Please try again.");
     } finally {
       setDeleting(false);
@@ -87,12 +87,13 @@ export function OrderDetailsDialog({
 
       if (success) {
         toast.success(message);
+        onOpenChange(false);
       } else {
         toast.error(message);
       }
     } catch (error) {
-        console.error("Error marking order as delivered:", error);
-        toast.error("Error marking order as delivered. Please try again.");
+      console.error("Error marking order as delivered:", error);
+      toast.error("Error marking order as delivered. Please try again.");
     } finally {
       setIsDeliveredDialogOpen(false);
       setMarkingDelivered(false);
