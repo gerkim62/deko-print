@@ -56,7 +56,7 @@ export default function ContactUs() {
                   {Object.entries(working_hours).map(([days, hours]) => (
                     <div key={days}>
                       <p className="text-sm text-primary-foreground/80">
-                        {days.replaceAll(" ", "").replace("-", " - ")}
+                        {days.replace("-", " - ")}
                       </p>
                       <p className="font-medium">{hours}</p>
                     </div>

@@ -102,8 +102,7 @@ export default function Hero() {
                   • {location_details}
                 </span>
                 <span className="whitespace-nowrap text-sm md:text-base font-medium">
-                  <span className="hidden sm:inline"> •</span>{" "}
-                  {working_hours["Monday-Friday"]}
+                  <span className="hidden sm:inline"> •</span> Online 24/7
                 </span>
               </div>
             </div>
