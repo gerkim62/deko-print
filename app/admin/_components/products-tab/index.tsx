@@ -56,7 +56,7 @@ export default function ProductsTab({ products }: Props) {
             onOpenChange={(open) => canClose && setIsCreateDialogOpen(open)}
           >
             <DialogTrigger asChild>
-              <Button>
+              <Button size={"sm"}>
                 <PlusCircle className="mr-2 h-4 w-4" />
                 Add Product
               </Button>

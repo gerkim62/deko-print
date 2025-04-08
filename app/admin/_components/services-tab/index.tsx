@@ -44,7 +44,7 @@ export default function ServicesTab({ services }: Props) {
           </div>
           <Dialog open={isCreateDialogOpen} onOpenChange={(open) => canClose && setIsCreateDialogOpen(open)}>
             <DialogTrigger asChild>
-              <Button>
+              <Button size={"sm"}>
                 <PlusCircle className="mr-2 h-4 w-4" />
                 Add Service
               </Button>

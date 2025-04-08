@@ -168,7 +168,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
             }}
           >
             <DialogTrigger asChild>
-              <Button>
+              <Button size={"sm"}>
                 <PlusCircle className="mr-2 h-4 w-4" />
                 Add Walk-in
               </Button>
