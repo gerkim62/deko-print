@@ -91,7 +91,9 @@ export function ProductsTable({
       <TableBody>
         {products.map((product) => (
           <TableRow key={product.id}>
-            <TableCell>{product.title}</TableCell>
+            <TableCell>
+              {product.title} ({product.stockRemaining})
+            </TableCell>
             <TableCell className="hidden md:table-cell">
               <Badge variant="outline">
                 {product.category === "Pre_owned"
