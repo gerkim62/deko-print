@@ -27,6 +27,7 @@ import { z } from "zod";
 import { NewProductSchema } from "@/validations/product";
 import { compressImage } from "@/lib/utils";
 import { ProductCategory } from "@prisma/client";
+import Image from "next/image";
 
 type Props = {
   onSuccess: () => void;
@@ -40,7 +41,7 @@ export function CreateProductForm({ onSuccess, setCanClose }: Props) {
 
   useEffect(() => {
     setCanClose(!createLoading);
-  }, [createLoading]);
+  }, [createLoading, setCanClose]);
 
   // Form data state
   const [formData, setFormData] = useState<z.infer<typeof NewProductSchema>>({
@@ -252,8 +253,10 @@ export function CreateProductForm({ onSuccess, setCanClose }: Props) {
               onClick={() => fileInputRef.current?.click()}
             >
               {imagePreview ? (
-                <img
-                  src={imagePreview || "/placeholder.svg"}
+                <Image
+                  width={320}
+                  height={320}
+                  src={imagePreview}
                   alt="Product preview"
                   className="h-full object-contain"
                 />

@@ -23,6 +23,7 @@ import { compressImage } from "@/lib/utils";
 import type { z } from "zod";
 import type { NewProductSchema } from "@/validations/product";
 import { ProductCategory, type Product } from "@prisma/client";
+import Image from "next/image";
 
 type Props = {
   product: Product;
@@ -247,8 +248,10 @@ export function EditProductForm({ product, onSuccess, setCanClose }: Props) {
               onClick={() => fileInputRef.current?.click()}
             >
               {imagePreview ? (
-                <img
-                  src={imagePreview || "/placeholder.svg"}
+                <Image
+                height={128}
+                width={128}
+                  src={imagePreview}
                   alt="Product preview"
                   className="h-full object-contain"
                 />

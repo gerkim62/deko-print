@@ -1,34 +1,33 @@
 "use client";
 
-import { useState } from "react";
-import { MapPin, Phone } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { deleteOrder, markOrderAsFullfilled } from "@/actions/orders";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+    AlertDialog,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
+import { formatCurrency, formatDateTime } from "@/lib/format";
+import { getReadableActionResult } from "@/lib/safe-action";
+import { MapPin, Phone } from "lucide-react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import type { OrderWithProductAndCustomer } from "./index";
 import { MarkDeliveredDialog } from "./mark-delivered-dialog";
-import { formatCurrency, formatDateTime } from "@/lib/format";
-import { deleteOrder, markOrderAsFullfilled } from "@/actions/orders";
-import { getReadableActionResult } from "@/lib/safe-action";
-import { toast } from "react-toastify";
 
 type OrderDetailsDialogProps = {
   order: OrderWithProductAndCustomer;
@@ -64,6 +63,7 @@ export function OrderDetailsDialog({
         toast.error(message);
       }
     } catch (error) {
+        console.error("Error deleting order:", error);
       toast.error("Error deleting order. Please try again.");
     } finally {
       setDeleting(false);
@@ -91,6 +91,8 @@ export function OrderDetailsDialog({
         toast.error(message);
       }
     } catch (error) {
+        console.error("Error marking order as delivered:", error);
+        toast.error("Error marking order as delivered. Please try again.");
     } finally {
       setIsDeliveredDialogOpen(false);
       setMarkingDelivered(false);
@@ -186,7 +188,7 @@ export function OrderDetailsDialog({
               </Button>
             )}
 
-            <AlertDialog onOpenChange={(open) => {}}>
+            <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button
                   hidden={order.status === "Fullfilled"}
