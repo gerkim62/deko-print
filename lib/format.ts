@@ -1,15 +1,14 @@
-import { Prisma } from "@prisma/client";
 import { ZodError } from "zod";
 
-export const formatCurrency = (
-  amount: number | string | Prisma.Decimal,
-  currency: string = "KES",
-  locale: string = "en-KE"
-): string => {
-  return new Intl.NumberFormat(locale, { style: "currency", currency }).format(
-    Number(amount.valueOf())
-  );
-};
+export function formatCurrency(amount: number, prefix: string = "Ksh") {
+  const formatted = new Intl.NumberFormat(undefined, {
+    style: "decimal",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+
+  return `${prefix} ${formatted}`;
+}
 
 export const formatDate = (date: Date): string => {
   // without the time part

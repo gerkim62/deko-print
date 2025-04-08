@@ -32,9 +32,11 @@ const FormDataSchema = z
 const uploadFiles = actionClient
   .schema(FormDataSchema)
   .action(async ({ parsedInput: files }) => {
+    console.time(`authenticating user`);
     const session = await auth.api.getSession({
       headers: await headers(),
     });
+    console.timeEnd(`authenticating user`);
 
     if (!session) {
       return {
@@ -87,4 +89,3 @@ const uploadFiles = actionClient
   });
 
 export { uploadFiles };
-

@@ -9,11 +9,18 @@ export default async function AdminPage() {
   const walkInsPromise = prisma.walkIn.findMany();
   const productsPromise = prisma.product.findMany();
   const servicesPromise = prisma.service.findMany();
+  const ordersPromise = prisma.order.findMany({
+    include: {
+      product: true,
+      customer: true,
+    },
+  });
 
-  const [walkIns, products, services] = await Promise.all([
+  const [walkIns, products, services, orders] = await Promise.all([
     walkInsPromise,
     productsPromise,
     servicesPromise,
+    ordersPromise,
   ]);
 
   return (
@@ -39,7 +46,7 @@ export default async function AdminPage() {
         </TabsContent>
 
         <TabsContent value="orders">
-          <OrdersTab />
+          <OrdersTab orders={orders} />
         </TabsContent>
 
         <TabsContent value="products">

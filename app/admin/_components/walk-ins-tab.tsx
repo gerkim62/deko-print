@@ -297,7 +297,6 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[50px]">ID</TableHead>
                   <TableHead>Customer</TableHead>
                   <TableHead className="hidden md:table-cell">
                     Product
@@ -313,7 +312,6 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
               <TableBody>
                 {paginatedWalkIns.map((walkIn) => (
                   <TableRow key={walkIn.id}>
-                    <TableCell>{walkIn.id}</TableCell>
                     <TableCell>{walkIn.customerName || "Anonymous"}</TableCell>
                     <TableCell className="hidden md:table-cell">
                       {getProductTitle(walkIn.productId)}
