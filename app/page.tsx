@@ -3,23 +3,22 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import prisma from "@/lib/prisma";
 import {
-  Cake,
+  Product,
+  ProductCategory,
+  Service,
+  ServiceCategory,
+} from "@prisma/client";
+import {
   ChevronRight,
   LucideIcon,
   Printer,
   ShoppingBag,
   Smartphone,
   Utensils,
-  Wrench,
+  Wrench
 } from "lucide-react";
-import Hero from "./_components/hero";
 import { EmptyState } from "./_components/empty-state";
-import {
-  Product,
-  ProductCategory,
-  Service,
-  ServiceCategory,
-} from "@prisma/client";
+import Hero from "./_components/hero";
 import ItemsGrid from "./_components/items-grid";
 // Define a union type for our tab item types
 type TabItem = {
