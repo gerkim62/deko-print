@@ -1,13 +1,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { auth } from "@/lib/auth";
+import prisma from "@/lib/prisma";
+import { ArrowRight, LayoutDashboard } from "lucide-react";
+import { headers } from "next/headers";
+import Link from "next/link";
 import OrdersTab from "./_components/orders-tab";
 import ProductsTab from "./_components/products-tab";
 import ServicesTab from "./_components/services-tab";
 import WalkInsTab from "./_components/walk-ins-tab";
-import prisma from "@/lib/prisma";
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
-import Link from "next/link";
-import { ArrowRight, BarChart3, LayoutDashboard } from "lucide-react";
 
 export default async function AdminPage() {
   const session = await auth.api.getSession({
