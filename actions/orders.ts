@@ -31,14 +31,35 @@ const createOrder = actionClient
       if (!session?.user.id)
         redirect(`/sign-in?next=/order-intent/${productId}`);
 
-      const order = await prisma.order.create({
-        data: {
-          deliveryLocation,
-          phoneNumber,
-          quantity,
-          customerId: session.user.id,
-          productId,
-        },
+      const order = await prisma.$transaction(async (tx) => {
+        const product = await tx.product.findUnique({
+          where: { id: productId },
+        });
+
+        if (!product || product.stockRemaining < quantity) {
+          throw new Error("Insufficient stock");
+        }
+
+        const createdOrder = await tx.order.create({
+          data: {
+            deliveryLocation,
+            phoneNumber,
+            quantity,
+            customerId: session.user.id,
+            productId,
+          },
+        });
+
+        await tx.product.update({
+          where: { id: productId },
+          data: {
+            stockRemaining: {
+              decrement: quantity,
+            },
+          },
+        });
+
+        return createdOrder;
       });
 
       revalidatePath("/");
@@ -65,10 +86,27 @@ const deleteOrder = actionClient
       };
     }
 
-    const order = await prisma.order.delete({
-      where: {
-        id,
-      },
+    const order = await prisma.$transaction(async (tx) => {
+      const existingOrder = await tx.order.findUnique({
+        where: { id },
+      });
+
+      if (!existingOrder) {
+        throw new Error("Order not found");
+      }
+
+      await tx.product.update({
+        where: { id: existingOrder.productId },
+        data: {
+          stockRemaining: {
+            increment: existingOrder.quantity,
+          },
+        },
+      });
+
+      return tx.order.delete({
+        where: { id },
+      });
     });
 
     revalidatePath("/");
@@ -101,23 +139,12 @@ const markOrderAsFullfilled = actionClient
       };
     }
 
-    await prisma.$transaction(async (tx) => {
-      const order = await tx.order.update({
-        where: { id },
-        data: {
-          status: "Fullfilled",
-          pricePaid,
-        },
-      });
-
-      await tx.product.update({
-        where: { id: order.productId },
-        data: {
-          stockRemaining: {
-            decrement: order.quantity,
-          },
-        },
-      });
+    await prisma.order.update({
+      where: { id },
+      data: {
+        status: "Fullfilled",
+        pricePaid,
+      },
     });
 
     revalidatePath("/");
