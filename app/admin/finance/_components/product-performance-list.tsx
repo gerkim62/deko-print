@@ -42,7 +42,7 @@ export function ProductPerformanceList({
                     {product.unitsSold} sold
                     {product.stockRemaining !== null
                       ? ` • ${product.stockRemaining} in stock`
-                      : " • Service offered."}
+                      : " • Service"}
                   </p>
                 </div>
               </div>
