@@ -46,9 +46,7 @@ export function CreateProductForm({ onSuccess }: Props) {
   });
 
   // Form input handlers
-  const handleInputChange = (field: string, value: string | number
-
-  ) => {
+  const handleInputChange = (field: string, value: string | number) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -88,7 +86,7 @@ export function CreateProductForm({ onSuccess }: Props) {
     const validationResult = NewProductSchema.safeParse(formData);
 
     if (!validationResult.success) {
-      const errorMessage = validationResult.error.errors[0].message
+      const errorMessage = validationResult.error.errors[0].message;
       toast.error(errorMessage);
       setCreateLoading(false);
       return;
@@ -110,17 +108,14 @@ export function CreateProductForm({ onSuccess }: Props) {
 
         const { message: imgMsg, success: imgSuccess } =
           getReadableActionResult(uploadResult);
+        const uploadedUrl = uploadResult?.data?.data?.uploaded?.[0]?.url;
 
-        if (!imgSuccess) {
+        if (!imgSuccess || !uploadedUrl) {
           toast.error(imgMsg);
           return;
         }
 
-        const uploadedUrl = uploadResult?.data?.data?.uploaded?.[0]?.url;
-
-        if (uploadedUrl) {
-          imageUrl = uploadedUrl;
-        }
+        imageUrl = uploadedUrl;
       } else {
         toast.error("Image is required");
         return;
