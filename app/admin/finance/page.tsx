@@ -28,7 +28,7 @@ export default async function FinanceDashboardPage() {
     ]);
 
   return (
-    <div className="flex flex-col gap-6 p-2 py-8 container mx-auto sm:p-6">
+    <div className="flex flex-col gap-6 p-4 py-8 container mx-auto sm:p-6">
       <div className="flex flex-wrap mx-2 items-start sm:items-center justify-between gap-4">
         <h1 className="flex items-center gap-2 text-2xl sm:text-3xl font-bold tracking-tight">
           <BarChart3 className="h-6 w-6 text-primary" />

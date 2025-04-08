@@ -47,7 +47,7 @@ export default async function AdminPage() {
   ]);
 
   return (
-    <div className="container min-h-screen mx-auto py-8 px-2 sm:px-4 md:py-10">
+    <div className="container min-h-screen mx-auto py-8 px-4 sm:px-4 md:py-10">
       <div className="flex flex-wrap items-start md:items-center justify-between gap-2 sm:gap-4 mb-4 md:mb-6">
         <h1 className="flex items-center gap-2 text-2xl sm:text-3xl font-bold tracking-tight">
           <LayoutDashboard className="h-6 w-6 text-primary" />
