@@ -27,7 +27,15 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
   if (url.pathname === OFFLINE_URL) {
-    event.respondWith(caches.match(OFFLINE_URL));
+    event.respondWith(
+      caches.match(OFFLINE_URL).then((cachedResponse) => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        // Optionally: return a fallback or do nothing
+        return fetch(event.request);
+      })
+    );
     return;
   }
 

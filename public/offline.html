@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You're Offline</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Prevent flash of wrong theme -->
+    <script>
+        // Immediately apply theme before any content renders
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700" rel="stylesheet">
     <style>
         :root {
             --radius: 0.625rem;
@@ -18,7 +30,7 @@
             --border: oklch(0.92 0.02 260);
         }
 
-        .dark {
+        html.dark {
             --background: oklch(0.2 0.05 260);
             --foreground: oklch(0.95 0 0);
             --primary: oklch(0.94 0.16 90);
@@ -156,39 +168,27 @@
     </div>
 
     <script>
-        // Check if dark mode is preferred
-        function setTheme() {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const savedTheme = localStorage.getItem('theme');
-            
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.body.classList.add('dark');
-                document.querySelector('.sun').style.display = 'none';
-                document.querySelector('.moon').style.display = 'block';
-            } else {
-                document.body.classList.remove('dark');
-                document.querySelector('.sun').style.display = 'block';
-                document.querySelector('.moon').style.display = 'none';
-            }
+        // Update icons based on current theme
+        function updateThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.querySelector('.sun').style.display = isDark ? 'none' : 'block';
+            document.querySelector('.moon').style.display = isDark ? 'block' : 'none';
         }
 
-        // Set initial theme
-        setTheme();
+        // Run icon update immediately
+        updateThemeIcons();
 
         // Toggle theme button
         document.getElementById('themeToggle').addEventListener('click', () => {
-            const isDark = document.body.classList.contains('dark');
+            const isDark = document.documentElement.classList.contains('dark');
             if (isDark) {
-                document.body.classList.remove('dark');
+                document.documentElement.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
-                document.querySelector('.sun').style.display = 'block';
-                document.querySelector('.moon').style.display = 'none';
             } else {
-                document.body.classList.add('dark');
+                document.documentElement.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
-                document.querySelector('.sun').style.display = 'none';
-                document.querySelector('.moon').style.display = 'block';
             }
+            updateThemeIcons();
         });
 
         // Retry button functionality
