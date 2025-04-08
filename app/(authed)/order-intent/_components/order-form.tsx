@@ -37,6 +37,7 @@ import { formatCurrency } from "@/lib/format";
 import Link from "next/link";
 import { createOrder } from "@/actions/orders";
 import { getReadableActionResult } from "@/lib/safe-action";
+import { useRouter } from "nextjs-toploader/app";
 
 interface ProductOrderFormComponentProps {
   product: Product;
@@ -48,6 +49,8 @@ export const OrderForm: React.FC<ProductOrderFormComponentProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [globalError, setGlobalError] = useState<string | null>(null);
+
+  const router = useRouter();
 
   // Initialize the form with product-specific schema
   const formSchema = createProductOrderSchema(product.stockRemaining);
@@ -89,6 +92,7 @@ export const OrderForm: React.FC<ProductOrderFormComponentProps> = ({
 
       if (success) {
         setOrderPlaced(true);
+        router.replace("/my/orders"); // Redirect to orders page after successful order
       } else {
         // Display the error message from the server
         setGlobalError(
@@ -108,7 +112,10 @@ export const OrderForm: React.FC<ProductOrderFormComponentProps> = ({
       <Card className="container mx-auto pt-0 max-w-3xl">
         <CardHeader className="bg-primary/5 rounded-t-lg">
           <CardTitle className="text-primary  mt-4 ">Order Received!</CardTitle>
-          <CardDescription className="pb-2"> We've received your order request.</CardDescription>
+          <CardDescription className="pb-2">
+            {" "}
+            We've received your order request.
+          </CardDescription>
         </CardHeader>
         <CardContent className="pt-6">
           <Alert className="bg-primary/10 text-primary-foreground border-primary/30">
