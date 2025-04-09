@@ -29,10 +29,20 @@ export default async function AdminPage() {
     );
   }
 
-  const walkInsPromise = prisma.walkIn.findMany();
-  const productsPromise = prisma.product.findMany();
-  const servicesPromise = prisma.service.findMany();
+  const walkInsPromise = prisma.walkIn.findMany({
+    orderBy: { updatedAt: "desc" },
+  });
+
+  const productsPromise = prisma.product.findMany({
+    orderBy: { updatedAt: "desc" },
+  });
+
+  const servicesPromise = prisma.service.findMany({
+    orderBy: { updatedAt: "desc" },
+  });
+
   const ordersPromise = prisma.order.findMany({
+    orderBy: { updatedAt: "desc" },
     include: {
       product: true,
       customer: true,
