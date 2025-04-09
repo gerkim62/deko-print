@@ -193,7 +193,7 @@ export function OrderDetailsDialog({
               <AlertDialogTrigger asChild>
                 <Button
                   hidden={order.status === "Fullfilled"}
-                  variant="outline"
+                  variant="destructive"
                 >
                   Delete Order
                 </Button>

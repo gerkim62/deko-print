@@ -353,6 +353,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
                                 Cancel
                               </AlertDialogCancel>
                               <Button
+                              variant={"destructive"}
                                 disabled={loading}
                                 onClick={() => handleDelete(walkIn.id)}
                               >
