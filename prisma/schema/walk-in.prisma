@@ -10,4 +10,7 @@ model WalkIn {
 
     quantity  Int
     pricePaid Float
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

@@ -5,7 +5,11 @@ export const NewServiceSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
   category: z.nativeEnum(ServiceCategory),
-  startingPrice: z.number().min(0, "Starting price must be greater than 0"),
+  startingPrice: z
+    .number({
+      message: "Starting price is required",
+    })
+    .min(0, "Starting price must be greater than 0"),
   tags: z.array(z.string()),
   image: z.string().optional(),
 });

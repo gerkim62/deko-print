@@ -54,12 +54,22 @@ export type WalkIn = {
   pricePaid: number;
 };
 
+export type FinancialMetrics = {
+  cumulative: number;
+  today: number;
+  week: number;
+  month: number;
+  yesterday: number;
+  lastWeek: number;
+  lastMonth: number;
+};
+
 // Define summary types for the dashboard
 export type RevenueSummary = {
-  totalRevenue: number;
-  orderRevenue: number;
-  walkInRevenue: number;
-  pendingPayments: number;
+  totalRevenue: FinancialMetrics;
+  orderRevenue: FinancialMetrics;
+  walkInRevenue: FinancialMetrics;
+  pendingPayments: FinancialMetrics;
 };
 
 export type CategoryRevenue = {
