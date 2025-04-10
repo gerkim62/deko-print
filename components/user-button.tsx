@@ -98,7 +98,7 @@ export function UserButton() {
           className="relative h-8 w-8 rounded-full"
         >
           <Avatar className=" border">
-            <AvatarImage src={""} alt={session.user.name || "User"} />
+            <AvatarImage alt={session.user.name || "User"} />
             <AvatarFallback>{getInitials(session.user.name)}</AvatarFallback>
           </Avatar>
         </Button>

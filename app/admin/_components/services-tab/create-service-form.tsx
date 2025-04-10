@@ -216,9 +216,10 @@ export function CreateServiceForm({ onSuccess, setCanClose }: Props) {
         </div>
         <div className="grid grid-cols-4 items-center gap-2">
           <Label htmlFor="startingPrice" className="text-right">
-            Price (optional)
+            Price
           </Label>
           <Input
+            placeholder="Optional"
             id="startingPrice"
             type="number"
             step="0.01"
