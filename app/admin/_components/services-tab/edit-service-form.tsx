@@ -210,7 +210,7 @@ export function EditServiceForm({ service, onSuccess, setCanClose }: Props) {
         </div>
         <div className="grid grid-cols-4 items-center gap-2">
           <Label htmlFor="edit-startingPrice" className=" ">
-            Starting Price
+            Price
           </Label>
           <Input
             id="edit-startingPrice"

@@ -1,5 +1,5 @@
 const contacts = {
-  emails: [],
+  emails: ["dekoprintke@gmail.com"],
   whatsapp: ["+2547 98 799 577"],
   calls: ["+2547 94 005 675"],
 } as const;

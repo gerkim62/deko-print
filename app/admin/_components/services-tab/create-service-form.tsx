@@ -48,7 +48,7 @@ export function CreateServiceForm({ onSuccess, setCanClose }: Props) {
     title: "",
     description: "",
     category: "Printing",
-    startingPrice: 0,
+    startingPrice: undefined,
     tags: [],
   });
 
@@ -107,7 +107,7 @@ export function CreateServiceForm({ onSuccess, setCanClose }: Props) {
         // Compress the image before uploading
         const compressedFile = await toast.promise(compressImage(file), {
           pending: "Processing image...",
-          error: "Failed to compress image",
+          error: "Unable to process image.",
         });
         if (!compressedFile) {
           toast.error("Failed to compress image");
@@ -216,7 +216,7 @@ export function CreateServiceForm({ onSuccess, setCanClose }: Props) {
         </div>
         <div className="grid grid-cols-4 items-center gap-2">
           <Label htmlFor="startingPrice" className="text-right">
-            Starting Price
+            Price (optional)
           </Label>
           <Input
             id="startingPrice"

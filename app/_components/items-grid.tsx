@@ -60,8 +60,8 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
     } else if (itemType === "services" && "startingPrice" in item) {
       const startingPrice = item.startingPrice;
       return startingPrice
-        ? `Starting at ${formatCurrency(startingPrice)}`
-        : "Contact for pricing";
+        ? `${formatCurrency(startingPrice)}`
+        : "WhatsApp or Call us for pricing information.";
     } else return "N/A";
   };
 
@@ -182,10 +182,7 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
                 <div></div>
               ) : (
                 // call us button
-                <Button
-                  asChild
-                  className="items-center justify-center flex"
-                >
+                <Button asChild className="items-center justify-center flex">
                   <a
                     href={`tel:${contacts.calls[0]
                       .replaceAll("+", "")
