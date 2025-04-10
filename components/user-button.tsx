@@ -66,14 +66,14 @@ export function UserButton() {
 
   if (error || !session?.user) {
     return (
-      <Button
-        title="Sign in"
-        asChild
-        size="sm"
-        className="bg-primary hover:bg-primary/90 text-primary-foreground"
-      >
-        <Link href={"/sign-in"}>Sign In</Link>
-      </Button>
+      <div className="flex items-center space-x-2">
+        <Button variant="outline" title="Sign in" asChild size="sm">
+          <Link href={"/sign-in"}>Sign In</Link>
+        </Button>
+        <Button title="Sign up" size="sm" asChild>
+          <Link href={"/sign-up"}>Create Account</Link>
+        </Button>
+      </div>
     );
   }
 
