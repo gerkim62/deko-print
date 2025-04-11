@@ -1,12 +1,12 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { NewServiceSchema, UpdateServiceSchema } from "@/validations/service";
-import actionClient from "@/lib/safe-action";
-import prisma from "@/lib/prisma";
-import { z } from "zod";
 import { auth } from "@/lib/auth";
+import prisma from "@/lib/prisma";
+import actionClient from "@/lib/safe-action";
+import { NewServiceSchema, UpdateServiceSchema } from "@/validations/service";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
+import { z } from "zod";
 
 async function getAdminSession() {
   const session = await auth.api.getSession({
@@ -31,17 +31,14 @@ const addService = actionClient
       };
     }
 
-    
-
     const newService = await prisma.service.create({
       data: {
         title: parsedInput.title,
         description: parsedInput.description,
         category: parsedInput.category,
-        startingPrice: parsedInput.startingPrice,
+        startingPrice: parsedInput.startingPrice ?? null,
         tags: parsedInput.tags,
-        image: parsedInput.image,
-        
+        image: parsedInput.image ?? null,
       },
     });
 
@@ -104,4 +101,5 @@ const deleteService = actionClient
     };
   });
 
-export { addService, updateService, deleteService };
+export { addService, deleteService, updateService };
+

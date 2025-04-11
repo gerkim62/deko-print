@@ -48,8 +48,9 @@ export function CreateServiceForm({ onSuccess, setCanClose }: Props) {
     title: "",
     description: "",
     category: "Printing",
-    startingPrice: undefined,
+    startingPrice: null,
     tags: [],
+    image: null,
   });
 
   // Form input handlers
@@ -76,8 +77,9 @@ export function CreateServiceForm({ onSuccess, setCanClose }: Props) {
       title: "",
       description: "",
       category: "Printing",
-      startingPrice: 0,
-      tags: ["new"],
+      startingPrice: null,
+      tags: [],
+      image: null,
     });
     setImagePreview(null);
     if (fileInputRef.current) {
@@ -224,7 +226,7 @@ export function CreateServiceForm({ onSuccess, setCanClose }: Props) {
             type="number"
             step="0.01"
             className="col-span-3"
-            value={formData.startingPrice}
+            value={formData.startingPrice ?? ""}
             onChange={(e) =>
               handleInputChange("startingPrice", e.target.valueAsNumber)
             }

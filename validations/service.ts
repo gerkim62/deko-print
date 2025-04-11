@@ -10,9 +10,9 @@ export const NewServiceSchema = z.object({
       message: "Starting price is required",
     })
     .min(0, "Starting price must be greater than 0")
-    .optional(),
+    .nullable(),
   tags: z.array(z.string()),
-  image: z.string().optional(),
+  image: z.string().nullable(),
 });
 
 export const UpdateServiceSchema = NewServiceSchema.partial().extend({

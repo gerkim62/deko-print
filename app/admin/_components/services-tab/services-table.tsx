@@ -1,10 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Pencil, Trash2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Dialog, DialogTrigger } from "@/components/ui/dialog"
+import { useState } from "react";
+import { Pencil, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,25 +22,25 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Badge } from "@/components/ui/badge"
-import { formatCurrency } from "@/lib/format"
-import { toast } from "react-toastify"
-import { deleteService } from "@/actions/service"
-import { getReadableActionResult } from "@/lib/safe-action"
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { formatCurrency } from "@/lib/format";
+import { toast } from "react-toastify";
+import { deleteService } from "@/actions/service";
+import { getReadableActionResult } from "@/lib/safe-action";
 
 // Import types from Prisma client
-import type { Service } from "@prisma/client"
-import { EditServiceForm } from "./edit-service-form"
+import type { Service } from "@prisma/client";
+import { EditServiceForm } from "./edit-service-form";
 
 type Props = {
-  services: Service[]
-  onEdit: (service: Service) => void
-  isEditDialogOpen: boolean
-  currentService: Service | null
-  setIsEditDialogOpen: (open: boolean) => void
-  setCurrentService: (service: Service | null) => void
-}
+  services: Service[];
+  onEdit: (service: Service) => void;
+  isEditDialogOpen: boolean;
+  currentService: Service | null;
+  setIsEditDialogOpen: (open: boolean) => void;
+  setCurrentService: (service: Service | null) => void;
+};
 
 export function ServicesTable({
   services,
@@ -43,32 +50,32 @@ export function ServicesTable({
   setIsEditDialogOpen,
   setCurrentService,
 }: Props) {
-  const [deleteLoading, setDeleteLoading] = useState<string | null>(null)
+  const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
 
-  const [canClose, setCanClose] = useState(false)
+  const [canClose, setCanClose] = useState(false);
 
   const handleDelete = async (id: string) => {
-    setDeleteLoading(id)
+    setDeleteLoading(id);
 
     try {
       const result = await toast.promise(deleteService({ id }), {
         pending: "Deleting service...",
-      })
-      const { success, message } = getReadableActionResult(result)
+      });
+      const { success, message } = getReadableActionResult(result);
 
       if (!success) {
-        toast.error(message)
-        return
+        toast.error(message);
+        return;
       }
 
-      toast.success(message)
+      toast.success(message);
     } catch (error) {
-      console.error("Error deleting service:", error)
-      toast.error("Failed to delete service. Please try again.")
+      console.error("Error deleting service:", error);
+      toast.error("Failed to delete service. Please try again.");
     } finally {
-      setDeleteLoading(null)
+      setDeleteLoading(null);
     }
-  }
+  };
 
   return (
     <Table>
@@ -76,7 +83,7 @@ export function ServicesTable({
         <TableRow>
           <TableHead>Name</TableHead>
           <TableHead className="hidden md:table-cell">Category</TableHead>
-          <TableHead>Starting Price</TableHead>
+          <TableHead>Price</TableHead>
           <TableHead>Actions</TableHead>
         </TableRow>
       </TableHeader>
@@ -87,20 +94,29 @@ export function ServicesTable({
             <TableCell className="hidden md:table-cell">
               <Badge variant="outline">{service.category}</Badge>
             </TableCell>
-            <TableCell>{service.startingPrice ? formatCurrency(service.startingPrice) : "N/A"}</TableCell>
+            <TableCell>
+              {service.startingPrice
+                ? formatCurrency(service.startingPrice)
+                : "-"}
+            </TableCell>
             <TableCell>
               <div className="flex space-x-2">
                 <Dialog
                   open={isEditDialogOpen && currentService?.id === service.id}
                   onOpenChange={(open) => {
                     if (!open && canClose) {
-                      setIsEditDialogOpen(false)
-                      setCurrentService(null)
+                      setIsEditDialogOpen(false);
+                      setCurrentService(null);
                     }
                   }}
                 >
                   <DialogTrigger asChild>
-                    <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => onEdit(service)}>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => onEdit(service)}
+                    >
                       <Pencil className="h-4 w-4" />
                     </Button>
                   </DialogTrigger>
@@ -109,8 +125,8 @@ export function ServicesTable({
                       setCanClose={setCanClose}
                       service={currentService}
                       onSuccess={() => {
-                        setIsEditDialogOpen(false)
-                        setCurrentService(null)
+                        setIsEditDialogOpen(false);
+                        setCurrentService(null);
                       }}
                     />
                   )}
@@ -119,7 +135,7 @@ export function ServicesTable({
                 <AlertDialog
                   onOpenChange={(open) => {
                     if (!open && !deleteLoading) {
-                      setDeleteLoading(null)
+                      setDeleteLoading(null);
                     }
                   }}
                 >
@@ -132,7 +148,8 @@ export function ServicesTable({
                     <AlertDialogHeader>
                       <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                       <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete the service.
+                        This action cannot be undone. This will permanently
+                        delete the service.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -141,7 +158,9 @@ export function ServicesTable({
                         onClick={() => handleDelete(service.id)}
                         disabled={deleteLoading === service.id}
                       >
-                        {deleteLoading === service.id ? "Deleting..." : "Delete"}
+                        {deleteLoading === service.id
+                          ? "Deleting..."
+                          : "Delete"}
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
@@ -152,5 +171,5 @@ export function ServicesTable({
         ))}
       </TableBody>
     </Table>
-  )
+  );
 }

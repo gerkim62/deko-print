@@ -216,9 +216,9 @@ export function EditServiceForm({ service, onSuccess, setCanClose }: Props) {
             id="edit-startingPrice"
             type="number"
             step="0.01"
-            value={formData.startingPrice}
+            value={formData.startingPrice??""}
             onChange={(e) =>
-              handleInputChange("startingPrice", Number(e.target.value))
+              handleInputChange("startingPrice", Number(e.target.valueAsNumber))
             }
             className="col-span-3"
           />
