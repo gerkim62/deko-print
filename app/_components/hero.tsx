@@ -64,7 +64,7 @@ export default function Hero() {
             <div className="flex justify-center flex-wrap-reverse gap-2 md:justify-start">
               <Button
                 asChild
-                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold "
+                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold flex-grow"
               >
                 <Link href={"#products-and-services"}>
                   Products and Services
@@ -74,7 +74,7 @@ export default function Hero() {
               <Button
                 asChild
                 variant="outline"
-                className="ml-4 bg-primary text-primary-foreground border-primary-foreground/20 hover:bg-primary-foreground hover:text-black font-semibold"
+                className=" bg-primary text-primary-foreground border-primary-foreground/20 hover:bg-primary-foreground hover:text-black font-semibold flex-grow"
               >
                 <Link href="/contact-us">
                   <Phone className="ml-2 h-4 w-4" />
@@ -110,7 +110,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="w-full md:w-2/5 mt-4 md:mt-0">
+          <div hidden className="w-full md:w-2/5 mt-4 md:mt-0">
             <Card className="relative bg-primary-foreground/10 backdrop-blur-sm p-4 md:p-6 rounded-lg shadow-2xl border-primary-foreground/20 text-primary-foreground">
               <div className="grid grid-cols-2 gap-3 md:gap-5">
                 {/* Printing */}
