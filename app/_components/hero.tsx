@@ -15,6 +15,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section className="relative bg-primary text-primary-foreground py-12 md:py-20 overflow-hidden">
+      
       {/* Abstract Background Elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-32 md:w-64 h-32 md:h-64 rounded-full bg-background"></div>
@@ -22,10 +23,12 @@ export default function Hero() {
         <div className="absolute top-40 right-40 w-10 md:w-20 h-10 md:h-20 rounded-full bg-muted"></div>
       </div>
 
-      {/* Location Badge - Hidden on small screens, visible from medium screens up */}
+ 
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+             {/* Location Badge - Hidden on small screens, visible from medium screens up */}
       <Badge
         variant="outline"
-        className="absolute top-6 right-6 hidden md:flex bg-accent text-accent-foreground px-4 py-2 rounded-full font-bold items-center shadow-lg"
+        className="absolute  right-6 hidden md:flex bg-accent text-accent-foreground px-4 py-2 rounded-full font-bold items-center shadow-lg"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +44,6 @@ export default function Hero() {
         {location_details}
       </Badge>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="text-center md:text-left w-full md:w-3/5 mb-8 md:mb-0">
             <div className="mb-4 md:mb-6">
