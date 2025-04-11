@@ -1,32 +1,57 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { location_details, name } from "@/constants";
 import {
   ArrowDown,
-  Package,
   Phone,
   Printer,
-  Utensils,
   Wrench,
+  Package,
+  Utensils,
 } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
   return (
     <section className="relative bg-primary text-primary-foreground py-12 md:py-20 overflow-hidden">
-      {/* Abstract Background Elements */}
+      {/* Meaningful Abstract Background Elements - Static */}
       <div className="absolute inset-0 opacity-10">
+        {/* Original background elements */}
         <div className="absolute top-20 left-10 w-32 md:w-64 h-32 md:h-64 rounded-full bg-background"></div>
         <div className="absolute bottom-10 right-20 w-20 md:w-40 h-20 md:h-40 rounded-full bg-secondary"></div>
         <div className="absolute top-40 right-40 w-10 md:w-20 h-10 md:h-20 rounded-full bg-muted"></div>
+
+        {/* Symbolic abstract elements representing services - No animation */}
+        <div className="absolute bottom-20 left-40 w-16 md:w-32 h-16 md:h-32 bg-accent opacity-20">
+          {/* Paper/Printing shape */}
+          <div className="absolute inset-0 rotate-6 border-4 border-primary-foreground/30"></div>
+          <div className="absolute inset-2 rotate-3 border-2 border-primary-foreground/20"></div>
+        </div>
+
+        <div className="absolute top-60 left-60 w-24 md:w-48 h-16 md:h-36 bg-primary-foreground/10">
+          {/* Device/Repair abstract shape */}
+          <div className="absolute top-0 left-1/4 right-1/4 h-1/4 bg-primary-foreground/30 rounded-t-md"></div>
+          <div className="absolute inset-y-1/4 inset-x-0 bg-primary-foreground/20"></div>
+        </div>
+
+        <div className="absolute top-10 right-10 h-24 md:h-36 w-20 md:w-32 opacity-20">
+          {/* Accessories abstract representation */}
+          <div className="absolute top-0 left-0 right-0 h-1/2 rounded-full bg-accent"></div>
+          <div className="absolute bottom-0 left-1/4 right-1/4 h-1/2 bg-accent"></div>
+        </div>
+
+        <div className="absolute bottom-40 right-60 w-20 md:w-36 h-20 md:h-36 opacity-20">
+          {/* Snacks/Food abstract shape */}
+          <div className="absolute inset-0 rotate-45 bg-secondary rounded-tr-3xl rounded-bl-3xl"></div>
+          <div className="absolute inset-4 rotate-12 bg-accent rounded-full"></div>
+        </div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Location Badge - Hidden on small screens, visible from medium screens up */}
         <Badge
           variant="outline"
-          className="absolute  right-6 hidden md:flex bg-accent text-accent-foreground px-4 py-2 rounded-full font-bold items-center shadow-lg"
+          className="absolute right-6 hidden md:flex bg-accent text-accent-foreground px-4 py-2 rounded-full font-bold items-center shadow-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -66,13 +91,13 @@ export default function Hero() {
               >
                 <Link href={"#products-and-services"}>
                   Products and Services
-                  <ArrowDown className="animate animate-bounce mt-1" />
+                  <ArrowDown className="mt-1 animate animate-bounce" />
                 </Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
-                className=" bg-primary text-primary-foreground border-primary-foreground/20 hover:bg-primary-foreground hover:text-black font-semibold flex-grow sm:flex-none"
+                className="bg-primary text-primary-foreground border-primary-foreground/20 hover:bg-primary-foreground hover:text-black font-semibold flex-grow sm:flex-none"
               >
                 <Link href="/contact-us">
                   <Phone className="ml-2 h-4 w-4" />
@@ -108,54 +133,179 @@ export default function Hero() {
             </div>
           </div>
 
-          <div hidden className="w-full md:w-2/5 mt-4 md:mt-0">
-            <Card className="relative bg-primary-foreground/10 backdrop-blur-sm p-4 md:p-6 rounded-lg shadow-2xl border-primary-foreground/20 text-primary-foreground">
-              <div className="grid grid-cols-2 gap-3 md:gap-5">
-                {/* Printing */}
-                <div
-                  className="bg-accent/25 p-3 md:p-5 rounded-lg text-center select-none animate-fade-in hover:bg-accent/20 transition-colors duration-300"
-                  style={{ animationDelay: "0.1s" }}
-                >
-                  <Printer className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse" />
-                  <span className="text-sm md:text-base font-medium">
-                    Printing
-                  </span>
+          {/* Meaningful abstract service representations with refined positioning and subtle animations */}
+          <div className="hidden md:block md:w-2/5 mt-4 md:mt-0 relative">
+            <div className="relative h-90 ml-4 mt-20 w-full overflow-hidden bg-muted/10 backdrop-blur-sm p-4 md:p-6 border border-primary-foreground/20 rounded-lg">
+              {/* Abstract service representations positioned closer to edges */}
+              <div className="relative h-full w-full">
+                {/* Printing service - Top Left */}
+                <div className="absolute top-4 left-4 flex flex-col items-center">
+                  <div className="w-14 h-14 rounded-sm bg-background/10 flex items-center justify-center hover:bg-background/20 transition-all duration-700">
+                    <Printer className="w-8 h-8 text-accent/50 transition-opacity duration-1000 opacity-50 hover:opacity-80" />
+                  </div>
+                  <div className="mt-2 w-12 h-0.5 bg-accent/20"></div>
+                  <div className="mt-1 w-8 h-0.5 bg-accent/15"></div>
                 </div>
 
-                {/* Repairs */}
-                <div
-                  className="bg-secondary/25 p-3 md:p-5 rounded-lg text-center select-none animate-fade-in hover:bg-secondary/20 transition-colors duration-300"
-                  style={{ animationDelay: "0.2s" }}
-                >
-                  <Wrench className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse" />
-                  <span className="text-sm md:text-base font-medium">
-                    Repairs
-                  </span>
+                {/* Repair service - Top Right */}
+                <div className="absolute top-4 right-4 flex flex-col items-center">
+                  <div className="w-14 h-14 rounded-sm bg-background/10 flex items-center justify-center hover:bg-background/20 transition-all duration-700">
+                    <Wrench className="w-8 h-8 text-accent/50 transition-opacity duration-1000 opacity-50 hover:opacity-80" />
+                  </div>
+                  <div className="mt-2 w-12 h-0.5 bg-accent/20"></div>
+                  <div className="mt-1 w-8 h-0.5 bg-accent/15"></div>
                 </div>
 
-                {/* Accessories */}
-                <div
-                  className="bg-muted/25 p-3 md:p-5 rounded-lg text-center select-none animate-fade-in hover:bg-muted/20 transition-colors duration-300"
-                  style={{ animationDelay: "0.3s" }}
-                >
-                  <Package className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse" />
-                  <span className="text-sm md:text-base font-medium">
-                    Accessories
-                  </span>
+                {/* Accessories service - Bottom Left */}
+                <div className="absolute bottom-4 left-4 flex flex-col items-center">
+                  <div className="w-14 h-14 rounded-sm bg-background/10 flex items-center justify-center hover:bg-background/20 transition-all duration-700">
+                    <Package className="w-8 h-8 text-accent/50 transition-opacity duration-1000 opacity-50 hover:opacity-80" />
+                  </div>
+                  <div className="mt-2 w-12 h-0.5 bg-accent/20"></div>
+                  <div className="mt-1 w-8 h-0.5 bg-accent/15"></div>
                 </div>
 
-                {/* Snacks */}
-                <div
-                  className="bg-accent/25 p-3 md:p-5 rounded-lg text-center select-none animate-fade-in hover:bg-accent/20 transition-colors duration-300"
-                  style={{ animationDelay: "0.4s" }}
-                >
-                  <Utensils className="h-6 w-6 md:h-8 md:w-8 mx-auto mb-2 md:mb-3 animate-pulse" />
-                  <span className="text-sm md:text-base font-medium">
-                    Snacks
-                  </span>
+                {/* Snacks service - Bottom Right */}
+                <div className="absolute bottom-4 right-4 flex flex-col items-center">
+                  <div className="w-14 h-14 rounded-sm bg-background/10 flex items-center justify-center hover:bg-background/20 transition-all duration-700">
+                    <Utensils className="w-8 h-8 text-accent/50 transition-opacity duration-1000 opacity-50 hover:opacity-80" />
+                  </div>
+                  <div className="mt-2 w-12 h-0.5 bg-accent/20"></div>
+                  <div className="mt-1 w-8 h-0.5 bg-accent/15"></div>
                 </div>
+
+                {/* Central connecting element */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div
+                    className="w-16 h-16 bg-background/5 rounded-full animate-pulse"
+                    style={{ animationDuration: "12s" }}
+                  ></div>
+                  <div
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-accent/10 animate-pulse"
+                    style={{ animationDuration: "16s" }}
+                  ></div>
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full border border-accent/15"></div>
+                </div>
+
+                {/* Subtle abstract animated elements */}
+                <div
+                  className="absolute top-1/3 left-1/3 w-1 h-1 bg-accent/20 rounded-full animate-ping"
+                  style={{ animationDuration: "8s" }}
+                ></div>
+                <div
+                  className="absolute top-2/3 right-1/3 w-1 h-1 bg-accent/20 rounded-full animate-ping"
+                  style={{ animationDuration: "9s" }}
+                ></div>
+                <div
+                  className="absolute bottom-1/3 left-2/3 w-1 h-1 bg-accent/20 rounded-full animate-ping"
+                  style={{ animationDuration: "10s" }}
+                ></div>
+
+                {/* Flowing connection lines */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {/* Top left to center line */}
+                  <line
+                    x1="14"
+                    y1="14"
+                    x2="50%"
+                    y2="50%"
+                    stroke="currentColor"
+                    className="text-accent/10"
+                    strokeWidth="0.5"
+                    strokeDasharray="3,3"
+                    strokeDashoffset="0"
+                  >
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      from="0"
+                      to="12"
+                      dur="24s"
+                      repeatCount="indefinite"
+                    />
+                  </line>
+
+                  {/* Top right to center line */}
+                  <line
+                    x1="calc(100% - 14px)"
+                    y1="14"
+                    x2="50%"
+                    y2="50%"
+                    stroke="currentColor"
+                    className="text-accent/10"
+                    strokeWidth="0.5"
+                    strokeDasharray="3,3"
+                    strokeDashoffset="0"
+                  >
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      from="0"
+                      to="12"
+                      dur="22s"
+                      repeatCount="indefinite"
+                    />
+                  </line>
+
+                  {/* Bottom left to center line */}
+                  <line
+                    x1="14"
+                    y1="calc(100% - 14px)"
+                    x2="50%"
+                    y2="50%"
+                    stroke="currentColor"
+                    className="text-accent/10"
+                    strokeWidth="0.5"
+                    strokeDasharray="3,3"
+                    strokeDashoffset="0"
+                  >
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      from="0"
+                      to="12"
+                      dur="26s"
+                      repeatCount="indefinite"
+                    />
+                  </line>
+
+                  {/* Bottom right to center line */}
+                  <line
+                    x1="calc(100% - 14px)"
+                    y1="calc(100% - 14px)"
+                    x2="50%"
+                    y2="50%"
+                    stroke="currentColor"
+                    className="text-accent/10"
+                    strokeWidth="0.5"
+                    strokeDasharray="3,3"
+                    strokeDashoffset="0"
+                  >
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      from="0"
+                      to="12"
+                      dur="20s"
+                      repeatCount="indefinite"
+                    />
+                  </line>
+                </svg>
+
+                {/* Additional abstract animated elements */}
+                <div
+                  className="absolute top-1/4 left-1/2 w-6 h-6 rounded-full border border-accent/5 bg-transparent animate-pulse"
+                  style={{ animationDuration: "15s" }}
+                ></div>
+                <div
+                  className="absolute top-3/4 left-1/4 w-4 h-4 rounded-full border border-accent/5 bg-transparent animate-pulse"
+                  style={{ animationDuration: "18s" }}
+                ></div>
+                <div
+                  className="absolute bottom-1/4 right-1/4 w-5 h-5 rounded-md border border-accent/5 bg-transparent animate-pulse"
+                  style={{ animationDuration: "17s" }}
+                ></div>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>
