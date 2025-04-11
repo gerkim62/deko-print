@@ -154,7 +154,7 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
                   alt={`${item.title} ${
                     itemType === "services" ? "service" : "product"
                   }`}
-                  className="rounded-md w-full h-52 object-cover mb-4"
+                  className="rounded-md w-full h-52 object-contain mb-4"
                 />
               )}
               <div
