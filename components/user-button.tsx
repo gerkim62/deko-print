@@ -13,11 +13,13 @@ import {
 import { authClient } from "@/lib/auth";
 import { UserRole } from "@prisma/client";
 import {
+  BarChart,
+  LayoutDashboard,
   LoaderCircleIcon,
+  LogIn,
   LogOut,
   ShoppingBag,
-  LayoutDashboard,
-  BarChart,
+  UserPlus
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "nextjs-toploader/app";
@@ -66,17 +68,70 @@ export function UserButton() {
 
   if (error || !session?.user) {
     return (
-      <div className="flex items-center space-x-2">
-        <Button variant="outline" title="Sign in" asChild size="sm">
-          <Link href={"/sign-in"}>Sign In</Link>
-        </Button>
-        <Button title="Sign up" size="sm" asChild>
-          <Link href={"/sign-up"}>Create Account</Link>
-        </Button>
-      </div>
+      <>
+        {/* Original buttons for sm screens and up */}
+        <div className="hidden sm:flex items-center space-x-2">
+          <Button variant="outline" title="Sign in" asChild size="sm">
+            <Link href={"/sign-in"}>Sign In</Link>
+          </Button>
+          <Button title="Sign up" size="sm" asChild>
+            <Link href={"/sign-up"}>Create Account</Link>
+          </Button>
+        </div>
+
+        {/* Dropdown for xs screens */}
+        <div className="sm:hidden">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                title="Account options"
+                variant="outline"
+                size="icon"
+                className="relative h-8 w-8 rounded-full"
+              >
+                <Avatar className="border">
+                  <AvatarFallback>
+                    <UserPlus className="h-4 w-4" />
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">
+                    You are not signed in
+                  </p>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    Sign in to access your account
+                  </p>
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/sign-in"
+                  className="cursor-pointer flex items-center"
+                >
+                  <LogIn className="mr-2 h-4 w-4" />
+                  <span>Sign In</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/sign-up"
+                  className="cursor-pointer flex items-center"
+                >
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  <span>Create Account</span>
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </>
     );
   }
-
   // Get first letters of user name for avatar fallback
   const getInitials = (name: string) => {
     if (!name.length) return "U";

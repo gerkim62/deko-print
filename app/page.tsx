@@ -1,4 +1,3 @@
-import BgSecondaryLogo from "@/components/layout/bg-secondary-logo";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import prisma from "@/lib/prisma";
@@ -143,8 +142,6 @@ async function ShopLandingPage() {
   return (
     <>
       <Hero />
-
-      <BgSecondaryLogo />
       {/* Main Content */}
       <main
         id="products-and-services"

@@ -48,21 +48,21 @@ export default function Hero() {
               <h2 className="text-xl md:text-2xl font-bold text-accent mb-1">
                 {name}
               </h2>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight text-pretty">
                 All Your <span className="text-accent">Needs</span>,{" "}
                 <br className="hidden sm:block" />
                 One Convenient Stop
               </h1>
             </div>
-            <p className="text-lg md:text-xl max-w-xl mx-auto md:mx-0 mb-6 md:mb-8 text-primary-foreground/80">
+            <p className="text-lg md:text-xl max-w-xl mx-auto md:mx-0 mb-6 md:mb-8 text-primary-foreground/80 text-pretty">
               From printing services and device repairs to unique accessories
               and delicious snacks - we've got everything you need in one
               convenient location.
             </p>
-            <div className="flex justify-center md:justify-start">
+            <div className="flex justify-center flex-wrap-reverse gap-2 md:justify-start">
               <Button
                 asChild
-                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold "
               >
                 <Link href={"#products-and-services"}>
                   Products and Services
@@ -99,10 +99,10 @@ export default function Hero() {
                   {name}
                 </span>
                 <span className="whitespace-nowrap text-sm md:text-base font-medium">
-                  • {location_details}
+                  • {location_details}.
                 </span>
                 <span className="whitespace-nowrap text-sm md:text-base font-medium">
-                  <span className=""> •</span> Online 24/7
+                  <span className=""> </span> Online 24/7
                 </span>
               </div>
             </div>
