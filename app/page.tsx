@@ -63,6 +63,32 @@ async function ShopLandingPage() {
   // Service tabs data
   const serviceTabs: AnyTabItem[] = [
     {
+      id: "accessories",
+      label: "Accessories",
+      icon: Smartphone,
+      title: "Professional Accessories",
+      description: "Premium accessories for all your devices",
+      items: products.filter(
+        (product) => product.category === ProductCategory.Accessory
+      ),
+      emptyMessage:
+        "No accessories are currently in stock. Please check back soon.",
+      itemType: "products",
+    },
+    {
+      id: "secondhand",
+      label: "Pre-Owned",
+      icon: ShoppingBag,
+      title: "Second-hand Products and Equipment",
+      description: "Quality certified used devices at competitive prices",
+      items: products.filter(
+        (product) => product.category === ProductCategory.Pre_owned
+      ),
+      emptyMessage:
+        "No second-hand equipment is currently available. Please check back soon.",
+      itemType: "products",
+    },
+    {
       id: "printing",
       label: "Printing",
       icon: Printer,
@@ -89,32 +115,7 @@ async function ShopLandingPage() {
         "No repair services are currently available. Please check back soon.",
       itemType: "services",
     },
-    {
-      id: "accessories",
-      label: "Accessories",
-      icon: Smartphone,
-      title: "Professional Accessories",
-      description: "Premium accessories for all your devices",
-      items: products.filter(
-        (product) => product.category === ProductCategory.Accessory
-      ),
-      emptyMessage:
-        "No accessories are currently in stock. Please check back soon.",
-      itemType: "products",
-    },
-    {
-      id: "secondhand",
-      label: "Pre-Owned",
-      icon: ShoppingBag,
-      title: "Pre-Owned Equipment",
-      description: "Quality certified used devices at competitive prices",
-      items: products.filter(
-        (product) => product.category === ProductCategory.Pre_owned
-      ),
-      emptyMessage:
-        "No pre-owned equipment is currently available. Please check back soon.",
-      itemType: "products",
-    },
+
     {
       id: "snacks",
       label: "Snacks",
@@ -149,7 +150,7 @@ async function ShopLandingPage() {
         id="products-and-services"
         className="container mx-auto px-4 md:px-6 py-12"
       >
-        <Tabs defaultValue="printing" className="w-full">
+        <Tabs defaultValue="accessories" className="w-full">
           {/* Services Navigation Tabs */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-foreground mb-8 text-center md:text-left">
