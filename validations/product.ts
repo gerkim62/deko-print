@@ -13,6 +13,5 @@ export const NewProductSchema = z.object({
   stockRemaining: z
     .number()
     .int("Stock must be a whole number.")
-    .min(1, "Stock must be at least 1.")
     .nonnegative("Stock cannot be negative."),
 });
