@@ -203,10 +203,10 @@ export const OrderForm: React.FC<ProductOrderFormComponentProps> = ({
                   name="deliveryLocation"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Delivery Address</FormLabel>
+                      <FormLabel>Delivery Location</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Enter your full delivery address"
+                          placeholder="Where should we deliver your order?"
                           className="resize-none focus:border-primary/50"
                           {...field}
                         />
@@ -310,10 +310,10 @@ export const OrderForm: React.FC<ProductOrderFormComponentProps> = ({
                   name="deliveryLocation"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Delivery Address</FormLabel>
+                      <FormLabel>Delivery Location</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Enter your full delivery address"
+                          placeholder="Where should we deliver your order?"
                           className="resize-none focus:ring-primary/30 focus:border-primary/50"
                           {...field}
                         />

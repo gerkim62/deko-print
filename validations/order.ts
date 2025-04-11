@@ -8,8 +8,8 @@ export const createProductOrderSchema = (stockRemaining: number) => {
       .max(stockRemaining, `We only have ${stockRemaining} in stock.`),
     deliveryLocation: z
       .string()
-      .min(5, "Please enter a more detailed delivery address.")
-      .max(200, "Your delivery address is too long (maximum 200 characters)."),
+      .min(5, "Please enter a more detailed delivery location.")
+      .max(200, "Your delivery location is too long (maximum 200 characters)."),
     phoneNumber: z
       .string()
       .min(8, "Phone number is too short.")
