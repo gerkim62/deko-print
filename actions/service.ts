@@ -46,7 +46,7 @@ const addService = actionClient
 
     return {
       success: true,
-      message: "Service created successfully",
+      message: "Service added successfully",
       service: newService,
     };
   });
