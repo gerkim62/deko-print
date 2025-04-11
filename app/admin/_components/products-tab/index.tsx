@@ -11,7 +11,7 @@ import {
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Package, PlusCircle } from "lucide-react";
 import { useState } from "react";
-import { PaginationControls } from "../pagination-controls";
+import { PaginationControls } from "../../../../components/pagination-controls";
 import { EmptyState } from "../ui/empty-state";
 // Import types from Prisma client
 import type { Product } from "@prisma/client";

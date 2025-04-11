@@ -41,7 +41,7 @@ import {
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useState } from "react";
 
-import { PaginationControls } from "./pagination-controls";
+import { PaginationControls } from "@/components/pagination-controls";
 import { EmptyState } from "./ui/empty-state";
 
 // Import types from Prisma client
@@ -353,7 +353,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
                                 Cancel
                               </AlertDialogCancel>
                               <Button
-                              variant={"destructive"}
+                                variant={"destructive"}
                                 disabled={loading}
                                 onClick={() => handleDelete(walkIn.id)}
                               >

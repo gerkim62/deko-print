@@ -1,47 +1,66 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { ShoppingCart } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { ShoppingCart } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
-import type { Order, Product, User } from "@prisma/client"
-import { PaginationControls } from "../pagination-controls"
-import { EmptyState } from "../ui/empty-state"
-import { OrderCard } from "./order-card" 
-import { OrderDetailsDialog } from "./order-details-dialog"
-import { formatCurrency } from "@/lib/format"
+import type { Order, Product, User } from "@prisma/client";
+import { PaginationControls } from "../../../../components/pagination-controls";
+import { EmptyState } from "../ui/empty-state";
+import { OrderCard } from "./order-card";
+import { OrderDetailsDialog } from "./order-details-dialog";
+import { formatCurrency } from "@/lib/format";
 export type OrderWithProductAndCustomer = Order & {
-  product: Product
-  customer: User
-}
+  product: Product;
+  customer: User;
+};
 
 type Props = {
-  orders: OrderWithProductAndCustomer[]
-}
+  orders: OrderWithProductAndCustomer[];
+};
 
 export default function OrdersTab({ orders }: Props) {
-  const [openDetailDialog, setOpenDetailDialog] = useState(false)
-  const [selectedOrder, setSelectedOrder] = useState<OrderWithProductAndCustomer | null>(null)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [openDetailDialog, setOpenDetailDialog] = useState(false);
+  const [selectedOrder, setSelectedOrder] =
+    useState<OrderWithProductAndCustomer | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const itemsPerPage = 5
-  const totalPages = Math.ceil(orders.length / itemsPerPage)
-  const paginatedOrders = orders.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(orders.length / itemsPerPage);
+  const paginatedOrders = orders.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const openOrderDetails = (order: OrderWithProductAndCustomer) => {
-    setSelectedOrder(order)
-    setOpenDetailDialog(true)
-  }
+    setSelectedOrder(order);
+    setOpenDetailDialog(true);
+  };
 
   return (
     <Card>
       <CardHeader>
         <div>
           <CardTitle>Orders</CardTitle>
-          <CardDescription>Manage customer orders and their status.</CardDescription>
+          <CardDescription>
+            Manage customer orders and their status.
+          </CardDescription>
         </div>
       </CardHeader>
       <CardContent>
@@ -75,11 +94,19 @@ export default function OrdersTab({ orders }: Props) {
                       <TableCell>{order.product.title}</TableCell>
                       <TableCell>{order.quantity}</TableCell>
                       <TableCell>
-                        <Badge variant={order.status === "Pending" ? "outline" : "default"}>
+                        <Badge
+                          variant={
+                            order.status === "Pending" ? "outline" : "default"
+                          }
+                        >
                           {order.status}
                         </Badge>
                       </TableCell>
-                      <TableCell>{order.pricePaid ? `${formatCurrency(order.pricePaid)}` : "Unpaid"}</TableCell>
+                      <TableCell>
+                        {order.pricePaid
+                          ? `${formatCurrency(order.pricePaid)}`
+                          : "Unpaid"}
+                      </TableCell>
                       <TableCell>
                         <Button
                           variant="outline"
@@ -99,7 +126,11 @@ export default function OrdersTab({ orders }: Props) {
             {/* Mobile view - Cards with expandable details */}
             <div className="md:hidden space-y-4">
               {paginatedOrders.map((order) => (
-                <OrderCard key={order.id} order={order} onViewDetails={() => openOrderDetails(order)} />
+                <OrderCard
+                  key={order.id}
+                  order={order}
+                  onViewDetails={() => openOrderDetails(order)}
+                />
               ))}
             </div>
           </>
@@ -120,5 +151,5 @@ export default function OrdersTab({ orders }: Props) {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

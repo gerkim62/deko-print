@@ -14,10 +14,11 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import type { Product, Service } from "@prisma/client";
-import { ChevronLeft, ChevronRight, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/format";
 import { contacts } from "@/constants";
+import { PaginationControls } from "@/components/pagination-controls";
 
 type ButtonTexts = {
   details: string;
@@ -32,6 +33,22 @@ type ItemCardGridProps = {
   buttonTexts: Record<string, ButtonTexts>;
 };
 
+const PriceDisplay: React.FC<{
+  item: Product | Service;
+  itemType: "products" | "services";
+}> = ({ item, itemType }) => {
+  if (itemType === "products" && "price" in item) {
+    return <>{formatCurrency(item.price)}</>;
+  } else if (itemType === "services" && "startingPrice" in item) {
+    return item.startingPrice ? (
+      <>{formatCurrency(item.startingPrice)}</>
+    ) : (
+      <>WhatsApp or Call us for pricing information.</>
+    );
+  }
+  return <>N/A</>;
+};
+
 const ItemsGrid: React.FC<ItemCardGridProps> = ({
   items,
   itemType,
@@ -41,92 +58,11 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-
-  // Calculate total pages
   const totalPages = Math.ceil(items.length / itemsPerPage);
 
-  // Get current items
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
-
-  // Helper function to render price based on item type
-  const renderPrice = (
-    item: Product | Service,
-    itemType: "products" | "services"
-  ) => {
-    if (itemType === "products" && "price" in item) {
-      return `${formatCurrency(item.price)}`;
-    } else if (itemType === "services" && "startingPrice" in item) {
-      const startingPrice = item.startingPrice;
-      return startingPrice
-        ? `${formatCurrency(startingPrice)}`
-        : "WhatsApp or Call us for pricing information.";
-    } else return "N/A";
-  };
-
-  // Page change handlers
-  const goToPage = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  const goToPreviousPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
-  };
-
-  const goToNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  };
-
-  // Generate page numbers
-  const getPageNumbers = () => {
-    const pageNumbers = [];
-    const maxPagesToShow = 5;
-
-    if (totalPages <= maxPagesToShow) {
-      // Show all pages if total pages is less than max pages to show
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
-    } else {
-      // Always show first page
-      pageNumbers.push(1);
-
-      // Calculate start and end of middle pages
-      let startPage = Math.max(2, currentPage - 1);
-      let endPage = Math.min(totalPages - 1, currentPage + 1);
-
-      // Adjust if we're near the beginning
-      if (currentPage <= 3) {
-        endPage = 4;
-      }
-
-      // Adjust if we're near the end
-      if (currentPage >= totalPages - 2) {
-        startPage = totalPages - 3;
-      }
-
-      // Add ellipsis after first page if needed
-      if (startPage > 2) {
-        pageNumbers.push("...");
-      }
-
-      // Add middle pages
-      for (let i = startPage; i <= endPage; i++) {
-        pageNumbers.push(i);
-      }
-
-      // Add ellipsis before last page if needed
-      if (endPage < totalPages - 1) {
-        pageNumbers.push("...");
-      }
-
-      // Always show last page
-      pageNumbers.push(totalPages);
-    }
-
-    return pageNumbers;
-  };
 
   return (
     <div className="space-y-8">
@@ -174,14 +110,13 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
                 className="text-sm text-muted-foreground font-medium"
                 aria-label="Price"
               >
-                {renderPrice(item, itemType)}
+                <PriceDisplay item={item} itemType={itemType} />
               </p>
             </CardContent>
             <CardFooter className="flex justify-between pt-2 border-t border-border">
               {itemType === "products" ? (
                 <div></div>
               ) : (
-                // call us button
                 <Button asChild className="items-center justify-center flex">
                   <a
                     href={`tel:${contacts.calls[0]
@@ -228,60 +163,19 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
         ))}
       </div>
 
-      {/* Pagination controls */}
       {totalPages > 1 && (
-        <nav
-          className="flex justify-center items-center space-x-2"
-          aria-label="Pagination"
-        >
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={goToPreviousPage}
-            disabled={currentPage === 1}
-            aria-label="Previous page"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
+        <>
+          <PaginationControls
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
 
-          {getPageNumbers().map((page, index) =>
-            typeof page === "number" ? (
-              <Button
-                key={index}
-                variant={currentPage === page ? "default" : "outline"}
-                size="sm"
-                onClick={() => goToPage(page)}
-                aria-label={`Page ${page}`}
-                aria-current={currentPage === page ? "page" : undefined}
-                className="min-w-[2.5rem]"
-              >
-                {page}
-              </Button>
-            ) : (
-              <span key={index} className="px-2">
-                {page}
-              </span>
-            )
-          )}
-
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={goToNextPage}
-            disabled={currentPage === totalPages}
-            aria-label="Next page"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </nav>
-      )}
-
-      {/* Items count and page info */}
-      {totalPages > 1 && (
-        <div className="text-center text-sm text-muted-foreground">
-          Showing {indexOfFirstItem + 1}-
-          {Math.min(indexOfLastItem, items.length)} of {items.length} items
-        </div>
+          <div className="text-center text-sm text-muted-foreground">
+            Showing {indexOfFirstItem + 1} -{" "}
+            {Math.min(indexOfLastItem, items.length)} of {items.length} items
+          </div>
+        </>
       )}
     </div>
   );
