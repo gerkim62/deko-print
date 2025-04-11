@@ -130,6 +130,47 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* New styles for refresh indicator and last checked time */
+        .refresh-indicator {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--accent-foreground);
+        }
+
+        .refresh-indicator.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--accent-foreground);
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .last-checked {
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            color: var(--foreground);
+            opacity: 0.7;
+            height: 1.2rem; /* Fixed height to prevent layout shifts */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease; /* Add transition for smooth fading effect */
+        }
     </style>
 </head>
 <body>
@@ -165,6 +206,13 @@
         <h1>You're Offline</h1>
         <p>It looks like you've lost your internet connection. Please check your connection and try again.</p>
         <button class="btn" id="retryButton">Try Again</button>
+        
+        <!-- New elements for refresh indicator and last checked time -->
+        <div class="refresh-indicator" id="refreshIndicator">
+            <div class="spinner"></div>
+            <span>Checking connection...</span>
+        </div>
+        <div class="last-checked" id="lastChecked">Last checked: Just now</div>
     </div>
 
     <script>
@@ -173,6 +221,89 @@
             const isDark = document.documentElement.classList.contains('dark');
             document.querySelector('.sun').style.display = isDark ? 'none' : 'block';
             document.querySelector('.moon').style.display = isDark ? 'block' : 'none';
+        }
+
+        // Format time difference with improved accuracy
+        function formatTimeDiff(timestamp) {
+            const now = new Date().getTime();
+            const diff = now - timestamp;
+            
+            // Convert to seconds
+            const seconds = Math.floor(diff / 1000);
+            
+            if (seconds < 5) return 'Just now';
+            if (seconds < 60) return `${seconds} seconds ago`;
+            
+            // Convert to minutes
+            const minutes = Math.floor(seconds / 60);
+            if (minutes === 1) return '1 minute ago';
+            if (minutes < 60) return `${minutes} minutes ago`;
+            
+            // Convert to hours
+            const hours = Math.floor(minutes / 60);
+            if (hours === 1) return '1 hour ago';
+            if (hours < 24) return `${hours} hours ago`;
+            
+            // Format with date for anything older than 24 hours
+            const date = new Date(timestamp);
+            const formattedDate = date.toLocaleString(undefined, {
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit'
+            });
+            
+            return formattedDate;
+        }
+
+        // Variables for connection checking
+        let lastCheckedTime = new Date().getTime();
+        let checkingConnection = false;
+        const lastCheckedEl = document.getElementById('lastChecked');
+        const refreshIndicatorEl = document.getElementById('refreshIndicator');
+
+        // Update last checked time display with smooth transition
+        function updateLastCheckedTime() {
+            // Create the new content with proper formatting
+            const formattedTime = formatTimeDiff(lastCheckedTime);
+            
+            // Update the text content with smooth transition
+            if (lastCheckedEl.textContent !== `Last checked: ${formattedTime}`) {
+                // Fade out effect
+                lastCheckedEl.style.opacity = '0';
+                
+                setTimeout(() => {
+                    lastCheckedEl.textContent = `Last checked: ${formattedTime}`;
+                    // Fade in effect
+                    lastCheckedEl.style.opacity = '0.7';
+                }, 300);
+            }
+        }
+
+        // Check connection status
+        function checkConnection() {
+            if (checkingConnection) return;
+            
+            checkingConnection = true;
+            refreshIndicatorEl.classList.add('active');
+            
+            // Attempt to fetch a resource to check connection
+            fetch('https://www.google.com/favicon.ico', { 
+                method: 'HEAD',
+                cache: 'no-store',
+                mode:"no-cors"
+            })
+            .then(() => {
+                // We're online, reload the page
+                window.location.reload();
+            })
+            .catch(() => {
+                // Still offline
+                lastCheckedTime = new Date().getTime();
+                updateLastCheckedTime();
+                checkingConnection = false;
+                refreshIndicatorEl.classList.remove('active');
+            });
         }
 
         // Run icon update immediately
@@ -193,13 +324,22 @@
 
         // Retry button functionality
         document.getElementById('retryButton').addEventListener('click', () => {
-            window.location.reload();
+            checkConnection();
         });
 
         // Listen for online status changes
         window.addEventListener('online', () => {
             window.location.reload();
         });
+
+        // Auto check connection every 30 seconds
+        setInterval(checkConnection, 30000);
+
+        // Update "last checked" time display every 10 seconds
+        setInterval(updateLastCheckedTime, 10000);
+
+        // Initial update
+        updateLastCheckedTime();
     </script>
 </body>
 </html>
