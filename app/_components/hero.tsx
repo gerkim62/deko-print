@@ -13,7 +13,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative bg-primary text-primary-foreground py-12 md:py-20 overflow-hidden">
+    <section className="relative bg-primary text-primary-foreground py-4 md:py-20 overflow-hidden">
       {/* Meaningful Abstract Background Elements - Static */}
       <div className="absolute inset-0 opacity-10">
         {/* Original background elements */}
@@ -107,7 +107,7 @@ export default function Hero() {
             </div>
 
             {/* Location Info - More compact on mobile */}
-            <div className="mt-6 md:mt-8 bg-primary-foreground/10 backdrop-blur-sm p-3 md:p-4 rounded-lg flex flex-col sm:flex-row items-center justify-center md:justify-start">
+            <div className="mt-6 -mb-4 sm:mb-0 md:mt-8 bg-primary-foreground/10 backdrop-blur-sm p-3 md:p-4 rounded-lg flex flex-col sm:flex-row items-center justify-center md:justify-start">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 mb-2 sm:mb-0 sm:mr-3 text-accent flex-shrink-0"
