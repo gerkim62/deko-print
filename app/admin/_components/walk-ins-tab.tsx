@@ -66,7 +66,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   const [customerName, setCustomerName] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
-  const [pricePaid, setPricePaid] = useState<string>("");
+  const [pricePaid, setPricePaid] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -96,7 +96,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
       const walkInData = {
         customerName: customerName || "Anonymous",
         quantity,
-        pricePaid: pricePaid ? parseFloat(pricePaid) : undefined,
+        pricePaid: pricePaid || null,
         // Set only one of productId or serviceId based on the selected type
         productId: selectedType === "product" ? selectedItemId : undefined,
         serviceId: selectedType === "service" ? selectedItemId : undefined,
@@ -149,7 +149,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
     setSelectedItemId(null);
     setCustomerName("");
     setQuantity(1);
-    setPricePaid("");
+    setPricePaid(null);
   };
 
   return (
@@ -267,9 +267,9 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
                   <Input
                     id="pricePaid"
                     type="number"
-                    step="0.01"
-                    value={pricePaid}
-                    onChange={(e) => setPricePaid(e.target.value)}
+                    step="1"
+                    value={pricePaid ?? ""}
+                    onChange={(e) => setPricePaid(e.target.valueAsNumber)}
                     className="col-span-3"
                   />
                 </div>
