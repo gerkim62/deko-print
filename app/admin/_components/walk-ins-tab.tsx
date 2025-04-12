@@ -46,11 +46,11 @@ import { EmptyState } from "./ui/empty-state";
 
 // Import types from Prisma client
 import { addWalkIn, deleteWalkIn } from "@/actions/walk-in";
+import { formatCurrency } from "@/lib/format";
 import { getReadableActionResult } from "@/lib/safe-action";
 import { NewWalkInSaleSchema } from "@/validations/walk-in";
 import type { Product, Service, WalkIn } from "@prisma/client";
 import { toast } from "react-toastify";
-import { formatCurrency } from "@/lib/format";
 
 type Props = {
   walkIns: WalkIn[];
@@ -105,7 +105,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
       const validationResult = NewWalkInSaleSchema.safeParse(walkInData);
 
       if (!validationResult.success)
-        return toast.error(validationResult.error.message);
+        return toast.error(validationResult.error.issues[0].message);
 
       setLoading(true);
 
@@ -256,7 +256,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
                     type="number"
                     min="1"
                     value={quantity}
-                    onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
+                    onChange={(e) => setQuantity(e.target.valueAsNumber)}
                     className="col-span-3"
                   />
                 </div>
@@ -269,7 +269,10 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
                     type="number"
                     step="1"
                     value={pricePaid ?? ""}
-                    onChange={(e) => setPricePaid(e.target.valueAsNumber)}
+                    onChange={(e) => {
+                      setPricePaid(e.target.valueAsNumber);
+                      console.log(e.target.valueAsNumber);
+                    }}
                     className="col-span-3"
                   />
                 </div>

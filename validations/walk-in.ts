@@ -14,7 +14,9 @@ const serviceLineItemSchema = z.object({
 // Common fields for both product and service sales
 const sharedSaleDetailsSchema = z.object({
   customerName: z.string().optional(),
-  quantity: z.number(),
+  quantity: z.number({
+    message:"Quantity is required"
+  }),
   pricePaid: z
     .number({
       required_error: "Total price paid is required",
