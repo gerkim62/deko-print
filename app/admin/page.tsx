@@ -8,26 +8,14 @@ import OrdersTab from "./_components/orders-tab";
 import ProductsTab from "./_components/products-tab";
 import ServicesTab from "./_components/services-tab";
 import WalkInsTab from "./_components/walk-ins-tab";
+import { forbidden } from "next/navigation";
 
 export default async function AdminPage() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
-  if (session?.user.role !== "ADMIN") {
-    return (
-      <div className="container min-h-[88vh] mx-auto flex flex-col justify-center items-center px-4 py-12 text-center">
-        <div className="text-6xl mb-4">🚫😅</div>
-        <h1 className="text-2xl md:text-3xl font-semibold mb-2">
-          Oops! You're not supposed to be here
-        </h1>
-        <p className="text-muted-foreground max-w-md">
-          This page is for admins only. If you think this is a mistake, try
-          contacting the site owner or go back to safety.
-        </p>
-      </div>
-    );
-  }
+  if (session?.user.role !== "ADMIN") forbidden()
 
   const walkInsPromise = prisma.walkIn.findMany({
     orderBy: { updatedAt: "desc" },
