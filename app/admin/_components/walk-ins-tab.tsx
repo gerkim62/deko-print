@@ -223,7 +223,9 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
                       id="itemSelect"
                       className="col-span-3 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                       value={selectedItemId || ""}
-                      onChange={(e) => setSelectedItemId(e.target.value)}
+                      onChange={(e) => {
+                        setSelectedItemId(e.target.value);
+                      }}
                     >
                       <option value="" disabled>
                         Select a {selectedType}
@@ -231,12 +233,15 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
                       {selectedType === "product"
                         ? products.map((product) => (
                             <option key={product.id} value={product.id}>
-                              {product.title}
+                              {product.title}({formatCurrency(product.price)})
                             </option>
                           ))
                         : services.map((service) => (
                             <option key={service.id} value={service.id}>
                               {service.title}
+                              {service.startingPrice
+                                ? "-" + formatCurrency(service.startingPrice)
+                                : ""}
                             </option>
                           ))}
                     </select>
