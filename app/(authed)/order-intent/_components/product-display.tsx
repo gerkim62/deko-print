@@ -13,8 +13,8 @@ export const ProductDisplay: React.FC<ProductDisplayProps> = ({ product }) => {
       <div className="flex lg:hidden mb-6">
         <div className="mr-4">
           <Image
-          width={80}
-          height={80}
+            width={80}
+            height={80}
             src={product.image || "/api/placeholder/100/100"}
             alt={product.title}
             className="rounded-md w-20 h-20 object-cover border border-border/50 shadow-sm"
@@ -23,7 +23,8 @@ export const ProductDisplay: React.FC<ProductDisplayProps> = ({ product }) => {
         <div>
           <h3 className="font-medium">{product.title}</h3>
           <p className="text-sm text-muted-foreground">
-            {product.description.substring(0, 60)}...
+            {product.description.substring(0, 60)}
+            {product.description.length > 60 ? "..." : ""}
           </p>
           <p className="font-medium text-lg mt-1">
             {formatCurrency(product.price)}
@@ -38,9 +39,9 @@ export const ProductDisplay: React.FC<ProductDisplayProps> = ({ product }) => {
       <div className="hidden lg:flex lg:flex-col">
         <div className="mb-4">
           <Image
-          height={192}
-          width={192}
-            src={product.image || "/api/placeholder/400/250"}
+            height={192}
+            width={192}
+            src={product.image || "/no-image.png"}
             alt={product.title}
             className="rounded-lg w-full h-48 object-cover border border-border/50 shadow-sm"
           />
