@@ -212,7 +212,7 @@ export const OrderForm: React.FC<ProductOrderFormComponentProps> = ({
                         />
                       </FormControl>
                       <FormDescription className="text-muted-foreground text-xs">
-                        Please provide your complete address for delivery
+                        Please provide your location for delivery
                       </FormDescription>
                       <FormMessage className="text-destructive" />
                     </FormItem>
@@ -319,7 +319,7 @@ export const OrderForm: React.FC<ProductOrderFormComponentProps> = ({
                         />
                       </FormControl>
                       <FormDescription className="text-muted-foreground text-xs">
-                        Please provide your complete address for delivery
+                        Please provide your location for delivery
                       </FormDescription>
                       <FormMessage className="text-destructive" />
                     </FormItem>
