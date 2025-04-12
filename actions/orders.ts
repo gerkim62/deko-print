@@ -1,5 +1,6 @@
 "use server";
 import { auth } from "@/lib/auth";
+import { sendSms } from "@/lib/messaging";
 import prisma from "@/lib/prisma";
 import actionClient from "@/lib/safe-action";
 import { createProductOrderSchema } from "@/validations/order";
@@ -7,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import * as constants from "@/constants";
 
 const createOrder = actionClient
   .schema(
@@ -58,6 +60,19 @@ const createOrder = actionClient
             },
           },
         });
+
+        const rawMessage = `Hi, ${session.user.name} just placed an order for ${quantity} ${product.title}. \nOrder No.:${createdOrder.id}\n${constants.name}. \n`;
+
+        const sanitizedMessage = rawMessage.replace(/[^\w\s\n.,!?-]/g, "-");
+
+        const smsSendResult = await sendSms({
+          phone:
+            process.env.ADMIN_SMS_NUMBER ||
+            constants.contacts.calls[0].replaceAll("+", "").replaceAll(" ", ""),
+          message: sanitizedMessage,
+        });
+
+        console.log(JSON.stringify({ smsSendResult }, null, 2));
 
         return createdOrder;
       });

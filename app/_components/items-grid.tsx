@@ -163,9 +163,7 @@ const ItemsGrid: React.FC<ItemCardGridProps> = ({
               ) : (
                 <Button asChild className="items-center justify-center flex">
                   <a
-                    href={`tel:${contacts.calls[0]
-                      .replaceAll("+", "")
-                      .replaceAll(" ", "")}`}
+                    href={`tel:${contacts.calls[0].replaceAll(" ", "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
