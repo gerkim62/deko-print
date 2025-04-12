@@ -1,4 +1,5 @@
 import { formatDateTime } from "@/lib/format";
+import Link from "next/link";
 import React from "react";
 
 const NotFoundPage = () => {
@@ -79,26 +80,26 @@ const NotFoundPage = () => {
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
+            <Link
               href="/"
               className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
             >
               Return to Home
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/#products-and-services"
               className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
             >
               Products & Services
-            </a>
+            </Link>
 
-            <a
-              href="/contact"
+            <Link
+              href="/contact-us"
               className="text-gray-400 hover:text-purple-600 border-b border-dotted border-gray-500 hover:border-purple-600 transition-colors duration-300 ml-2"
             >
               Contact Support
-            </a>
+            </Link>
           </div>
         </div>
 
