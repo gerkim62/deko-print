@@ -94,7 +94,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
     try {
       // Prepare data according to the schema requirements
       const walkInData = {
-        customerName: customerName || "Anonymous",
+        customerName: customerName || "-",
         quantity,
         pricePaid: pricePaid || null,
         // Set only one of productId or serviceId based on the selected type
@@ -323,7 +323,7 @@ export default function WalkInsTab({ products, services, walkIns }: Props) {
               <TableBody>
                 {paginatedWalkIns.map((walkIn) => (
                   <TableRow key={walkIn.id}>
-                    <TableCell>{walkIn.customerName || "Anonymous"}</TableCell>
+                    <TableCell>{walkIn.customerName || "-"}</TableCell>
                     <TableCell className="hidden md:table-cell">
                       {getProductTitle(walkIn.productId)}
                     </TableCell>
