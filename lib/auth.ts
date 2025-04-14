@@ -28,6 +28,9 @@ export const auth = betterAuth({
       },
     },
   },
+  session: {
+    expiresIn: 60 * 60 * 24 * 30,
+  },
 });
 
 export const authClient = createAuthClient({

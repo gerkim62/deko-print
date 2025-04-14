@@ -14,7 +14,7 @@ import {
 } from "./_lib/data-service";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
-import { forbidden } from "next/navigation";
+import { forbidden, redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Finance Dashboard",
@@ -26,7 +26,9 @@ export default async function FinanceDashboardPage() {
     headers: await headers(),
   });
 
-  if (session?.user.role !== "ADMIN") forbidden();
+  if (!session) redirect("/sign-in?next=/admin/finance");
+
+  if (session.user.role !== "ADMIN") forbidden();
 
   const [summaryData, revenueData, topProducts, recentTransactions] =
     await Promise.all([

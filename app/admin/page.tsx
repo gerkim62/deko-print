@@ -8,14 +8,16 @@ import OrdersTab from "./_components/orders-tab";
 import ProductsTab from "./_components/products-tab";
 import ServicesTab from "./_components/services-tab";
 import WalkInsTab from "./_components/walk-ins-tab";
-import { forbidden } from "next/navigation";
+import { forbidden, redirect } from "next/navigation";
 
 export default async function AdminPage() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
-  if (session?.user.role !== "ADMIN") forbidden()
+  if(!session) redirect("/sign-in?next=/admin")
+
+  if (session.user.role !== "ADMIN") forbidden()
 
   const walkInsPromise = prisma.walkIn.findMany({
     orderBy: { updatedAt: "desc" },

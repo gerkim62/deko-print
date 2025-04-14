@@ -13,7 +13,7 @@ function getChange(current: number, previous: number): { value: string; isPositi
   if (!previous) return { value: "0.0%", isPositive: false }
   const change = ((current - previous) / previous) * 100
   return {
-    value: Math.abs(change).toFixed(1) + "%",
+    value: (change).toFixed(1) + "%",
     isPositive: change >= 0,
   }
 }
