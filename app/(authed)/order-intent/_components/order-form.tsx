@@ -92,7 +92,7 @@ export const OrderForm: React.FC<ProductOrderFormComponentProps> = ({
 
       if (success) {
         setOrderPlaced(true);
-        router.replace("/my/orders"); // Redirect to orders page after successful order
+        router.replace("/feedback?next=/my/orders"); // Redirect to orders page after successful order
       } else {
         // Display the error message from the server
         setGlobalError(
