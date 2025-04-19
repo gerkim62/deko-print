@@ -35,6 +35,7 @@ type Props = {
 };
 
 export function CreateProductForm({ onSuccess, setCanClose }: Props) {
+  console.log(ProductCategory)
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [createLoading, setCreateLoading] = useState(false);
@@ -209,7 +210,7 @@ export function CreateProductForm({ onSuccess, setCanClose }: Props) {
             onValueChange={(value) => handleInputChange("category", value)}
           >
             {Object.values(ProductCategory).map((category) => (
-              <div key={category} className="flex items-center space-x-2">
+              <div key={category} className="flex items-center flex-wrap space-x-2">
                 <RadioGroupItem value={category} id={category} />
                 <Label htmlFor={category}>{category.replace("_", "-")}</Label>
               </div>

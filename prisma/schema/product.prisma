@@ -20,4 +20,5 @@ enum ProductCategory {
     Pre_owned
     Accessory
     Snack
+    Other
 }

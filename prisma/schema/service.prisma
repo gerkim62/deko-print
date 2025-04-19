@@ -16,4 +16,5 @@ model Service {
 enum ServiceCategory {
     Printing
     Repair
+    Movies_and_Series
 }

@@ -209,7 +209,7 @@ export function CreateServiceForm({ onSuccess, setCanClose }: Props) {
             onValueChange={(value) => handleInputChange("category", value)}
           >
             {Object.values(ServiceCategory).map((category) => (
-              <div key={category} className="flex items-center space-x-2">
+              <div key={category} className="flex items-center flex-wrap space-x-2">
                 <RadioGroupItem value={category} id={category} />
                 <Label htmlFor={category}>{category}</Label>
               </div>
