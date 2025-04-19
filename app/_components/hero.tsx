@@ -82,7 +82,7 @@ export default function Hero() {
             <p className="text-lg md:text-xl max-w-xl mx-auto md:mx-0 mb-6 md:mb-8 text-primary-foreground/80 text-pretty">
               From printing services and device repairs to unique accessories
               and delicious snacks - we've got everything you need in one
-              convenient location.
+              convenient location. We offer movies and series too!
             </p>
             <div className="flex justify-center flex-wrap-reverse gap-2 md:justify-start">
               <Button
