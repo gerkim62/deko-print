@@ -205,12 +205,12 @@ export function CreateProductForm({ onSuccess, setCanClose }: Props) {
             Category
           </Label>
           <RadioGroup
-            className="col-span-3 flex gap-4"
+            className="col-span-3 flex flex-wrap gap-4"
             value={formData.category}
             onValueChange={(value) => handleInputChange("category", value)}
           >
             {Object.values(ProductCategory).map((category) => (
-              <div key={category} className="flex items-center flex-wrap space-x-2">
+              <div key={category} className="flex items-center space-x-2">
                 <RadioGroupItem value={category} id={category} />
                 <Label htmlFor={category}>{category.replace("_", "-")}</Label>
               </div>
