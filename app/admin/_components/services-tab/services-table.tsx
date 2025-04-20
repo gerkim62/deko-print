@@ -92,7 +92,9 @@ export function ServicesTable({
           <TableRow key={service.id}>
             <TableCell>{service.title}</TableCell>
             <TableCell className="hidden md:table-cell">
-              <Badge variant="outline">{service.category}</Badge>
+              <Badge variant="outline">
+                {service.category.replaceAll("_", " ")}
+              </Badge>
             </TableCell>
             <TableCell>
               {service.startingPrice

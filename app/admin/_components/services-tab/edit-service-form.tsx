@@ -203,7 +203,7 @@ export function EditServiceForm({ service, onSuccess, setCanClose }: Props) {
             {Object.values(ServiceCategory).map((category) => (
               <div key={category} className="flex items-center space-x-2">
                 <RadioGroupItem value={category} id={category} />
-                <Label htmlFor={category}>{category}</Label>
+                <Label htmlFor={category}>{category.replaceAll("_"," ")}</Label>
               </div>
             ))}
           </RadioGroup>

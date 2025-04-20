@@ -11,6 +11,7 @@ import {
   ChevronRight,
   LucideIcon,
   Printer,
+  Shirt,
   ShoppingBag,
   Smartphone,
   Utensils,
@@ -128,6 +129,32 @@ async function ShopLandingPage() {
         "No snacks are currently available. Please check back soon.",
       itemType: "products",
     },
+    {
+      id: "others",
+      label: "More",
+      icon: Shirt,
+      title: "Other Items",
+      description: "Other items",
+      items: products.filter(
+        (product) => product.category === ProductCategory.Others
+      ),
+      emptyMessage:
+        "No other items are currently available. Please check back soon.",
+      itemType: "products",
+    },
+    // {
+    //   id: "Movies_and_Series",
+    //   label: "Movies and Series",
+    //   icon: ShoppingBag,
+    //   title: "Movies and Series",
+    //   description: "Movies and Series",
+    //   items: products.filter(
+    //     (product) => product.category === ProductCategory.Movies_and_Series
+    //   ),
+    //   emptyMessage:
+    //     "No movies and series are currently available. Please check back soon.",
+    //   itemType: "products",
+    // },
   ];
 
   // Button texts - could be customized per category if needed
