@@ -142,19 +142,18 @@ async function ShopLandingPage() {
         "No other items are currently available. Please check back soon.",
       itemType: "products",
     },
-    // {
-    //   id: "Movies_and_Series",
-    //   label: "Movies and Series",
-    //   icon: ShoppingBag,
-    //   title: "Movies and Series",
-    //   description: "Movies and Series",
-    //   items: products.filter(
-    //     (product) => product.category === ProductCategory.Movies_and_Series
-    //   ),
-    //   emptyMessage:
-    //     "No movies and series are currently available. Please check back soon.",
-    //   itemType: "products",
-    // },
+    {
+      id: "Movies_and_Series",
+      label: "Movies and Series",
+      icon: ShoppingBag,
+      title: "Movies and Series",
+      description: "Movies and Series",
+      items: services.filter(
+        (service) => service.category === ServiceCategory.Movies_and_Series
+      ),
+      emptyMessage: "Please visit our shop for movies and series.",
+      itemType: "services",
+    },
   ];
 
   // Button texts - could be customized per category if needed
