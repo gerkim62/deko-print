@@ -180,7 +180,7 @@ async function ShopLandingPage() {
               Our Products and Services
             </h2>
             <TabsList
-              className="w-full flex flex-wrap justify-center md:justify-start gap-2 bg-transparent sm:mb-0 mb-4"
+              className="w-full flex flex-wrap justify-center md:justify-start gap-2 bg-transparent sm:mb-0 mb-24"
               aria-label="Services Categories"
             >
               {serviceTabs.map((tab) => (
